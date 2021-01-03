@@ -41,11 +41,11 @@
   </ul>
   
   
-   <form class="form-inline justify-content-start" action="/action_page.php">
+   <form class="form-inline justify-content-end" action="/action_page.php">
     <input class="form-control mr-sm-2" type="text" placeholder="Search">
     <button class="btn btn-success" type="submit">Search</button>
   </form>
-  
 </nav>
+
 </body>
 </html>

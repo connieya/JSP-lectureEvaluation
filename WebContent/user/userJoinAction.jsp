@@ -1,3 +1,4 @@
+<% request.setCharacterEncoding("UTF-8"); %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="user.UserDAO"%>
@@ -12,7 +13,7 @@
 </head>
 <body>
 	<%
-		request.setCharacterEncoding("UTF-8");
+		
 		UserDAO userdao = new UserDAO();
 		int result = userdao.join(user);
 		
