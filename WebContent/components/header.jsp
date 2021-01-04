@@ -27,13 +27,13 @@
 	
   <ul class="navbar-nav">
     <li class="nav-item active">
-      <a class="nav-link" href="../index.jsp">Home</a>
+      <a class="nav-link" href="/lectureEvaluation/index.jsp">Home</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="user/join.jsp">회원가입</a>
+      <a class="nav-link" href="/lectureEvaluation/user/join.jsp">회원가입</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="../user/login.jsp">로그인</a>
+      <a class="nav-link" href="/lectureEvaluation/user/login.jsp">로그인</a>
     </li>
     <li class="nav-item">
       <a class="nav-link disabled" href="#">Disabled</a>
