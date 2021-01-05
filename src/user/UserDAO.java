@@ -15,7 +15,7 @@ public class UserDAO {
 	
 	//회원가입
 	public int join(User user) {
-		String sql = "insert into user values(?,?,?,?,?,false)";
+		String sql = "insert into user(userId,userName,userPassword,userEmail,userEmailHash,userEmailChecked) values(?,?,?,?,?,false)";
 		try {
 			Connection conn = DatabaseUtill.dbPool();
 			pstmt = conn.prepareStatement(sql);
@@ -24,7 +24,7 @@ public class UserDAO {
 			pstmt.setString(3,user.getUserPassword());
 			pstmt.setString(4,user.getUserEmail());
 			pstmt.setString(5, user.getUserEmailHash());
-			
+			System.out.println("user 객체:"+user);
 			System.out.println("회원가입  성공");
 			return pstmt.executeUpdate();
 		}catch(Exception e){

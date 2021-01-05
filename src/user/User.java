@@ -13,6 +13,8 @@ public class User {
 	
 	
 	
+	
+	
 	public int getUserNo() {
 		return userNo;
 	}
@@ -71,6 +73,12 @@ public class User {
 		this.userEmail = userEmail;
 		this.userEmailHash = userEmailHash;
 		this.userEmailChecked = userEmailChecked;
+	}
+	@Override
+	public String toString() {
+		return "User [userNo=" + userNo + ", userId=" + userId + ", userName=" + userName + ", userPassword="
+				+ userPassword + ", userEmail=" + userEmail + ", userEmailHash=" + userEmailHash + ", userEmailChecked="
+				+ userEmailChecked + "]";
 	}
 	
 	
