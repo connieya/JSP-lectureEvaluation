@@ -18,15 +18,20 @@ public class UserDAO {
 		String sql = "insert into user(userId,userName,userPassword,userEmail,userEmailHash,userEmailChecked) values(?,?,?,?,?,false)";
 		try {
 			Connection conn = DatabaseUtill.dbPool();
+			PreparedStatement pstmt ;
+			ResultSet rs;
+			System.out.println("user 객체:"+user);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user.getUserId());
 			pstmt.setString(2,user.getUserName());
 			pstmt.setString(3,user.getUserPassword());
 			pstmt.setString(4,user.getUserEmail());
 			pstmt.setString(5, user.getUserEmailHash());
-			System.out.println("user 객체:"+user);
+			System.out.println("이메일 해쉬값 : " + user.getUserEmailHash());
 			System.out.println("회원가입  성공");
-			return pstmt.executeUpdate();
+			
+			
+			return  pstmt.executeUpdate();
 		}catch(Exception e){
 			System.out.println("회원가입 실패");
 			e.printStackTrace();
@@ -136,6 +141,7 @@ public class UserDAO {
 	}
 	
 	public String getUserEmail(String userId) {
+			System.out.println("getUserEmail 메서드 호출");
 		String sql ="select userEmail from user where userId=?";
 		
 		try {
@@ -162,5 +168,104 @@ public class UserDAO {
 	}
 		
 		return null;
+	}
+	// 유저 정보 가져오기
+	public User getUser(String pr) {
+		System.out.println("유저 정보 가져오기");
+		String sql = "select * from user where userId = ?";
+		System.out.println("Sss");
+		System.out.println("pr 값은 :"+ pr);
+		User user = new User();
+		try {
+			conn= DatabaseUtill.dbPool();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,pr);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				user.setUserName(rs.getString(3));
+				user.setUserId(rs.getString(2));
+				user.setUserEmail(rs.getString(5));
+				user.setUserPassword(rs.getString(4));
+				System.out.println("rs next");
+				System.out.println("DB 2번 항목 : "+ rs.getString(2));
+				System.out.println("DB 4번 항목 : "+rs.getString(4));
+				return user;
+			}else {
+				System.out.println("해당 유저 정보가 없습니다");
+				return null;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+		}catch(Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+		
+		return null;
+	}
+	
+	//회원 탈퇴
+	public int 회원탈퇴(String userId) {
+		System.out.println("회원탈퇴 메서드 호출");
+		System.out.println("userId : " +userId);
+		String sql = "delete from user where userId = ?";
+		
+		conn = DatabaseUtill.dbPool();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+		}catch(Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+		
+		return -1;
+	}
+	
+	
+	//회원수정
+	public int 회원수정(String userId, String userName, String userPassword) {
+		System.out.println("회원수정 메서드 호출");
+		System.out.println("userId : " +userId);
+		String sql = "update user set userName =? , userPassword =?  where userId = ?";
+		
+		conn = DatabaseUtill.dbPool();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userName);
+			pstmt.setString(2, userPassword);
+			pstmt.setString(3, userId);
+			
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+		}catch(Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+		
+		return -1;
 	}
 }

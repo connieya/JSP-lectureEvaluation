@@ -25,11 +25,23 @@
 			script.println("</script>");
 			session.setAttribute("principal", user.getUserId());
 		
-		}else{
+		}else if(result == 0){
 			
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('로그인 실패')");
+			script.println("alert('비밀번호가 틀렸습니다.')");
+			script.println("history.back()");
+			script.println("</script>");
+		}else if(result == -1){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('아이디가 없습니다.')");
+			script.println("history.back()");
+			script.println("</script>");
+		}else{
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('오류 발생!')");
 			script.println("history.back()");
 			script.println("</script>");
 		}

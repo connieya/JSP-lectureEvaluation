@@ -5,23 +5,28 @@ import java.security.MessageDigest;
 public class SHA256 {
 	
 	public static String getSHA256(String input) {
-		StringBuffer result = new StringBuffer();
+		System.out.println("SHA256 호출");
+		String result ="";
+		byte[] b = input.getBytes();
 		try {
-			MessageDigest digest = MessageDigest.getInstance("SHA_256");
-			byte[] salt = "Hello! This is Salt.".getBytes();
-			digest.reset();
-			digest.update(salt);
-			byte[] chars = digest.digest(input.getBytes("UTF-8"));
-			for(int i=0; i<chars.length; i++) {
-				String hex = Integer.toHexString(0xff & chars[i]);
-				if(hex.length() ==1) result.append("0");
-				result.append(hex);
-			}
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			md.update(b);
 			
+			byte[] bResult = md.digest();
+			for(byte data : bResult) {
+				System.out.println(data+"");
+			}
+			System.out.println();
+			StringBuffer sb = new StringBuffer();
+			for(byte data : bResult) {
+				sb.append(Integer.toString(data & 0xff,16));
+			}
+			result = sb.toString();
+			System.out.println(result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return result.toString();
+		return result;
 	}
 
 }
