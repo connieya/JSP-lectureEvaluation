@@ -1,3 +1,4 @@
+<%@page import="utill.SHA256"%>
 <%@page import="user.User"%>
 <%@page import="user.UserDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -27,8 +28,11 @@
 
 	User user = new User();
 	user = dao.getUser(pr);
+	//String code = null;
+	// code = user.getUserEmailHash();
 	
-	String userId =user.getUserId();
+	//String userId  =null;
+	 String userId =user.getUserId();
 %>
 <br/>
 	<div class="container" style="text-align: center;" >
@@ -57,7 +61,7 @@
 		</div>
 		<input class="btn btn-primary" type="submit" value="회원수정" />
 		<a href="/lectureEvaluation/user/userDeleteAction.jsp?userId=<%=userId %>" class="btn btn-danger" onclick="return confirm('정말 탈퇴 하시겠습니까?')">회원탈퇴</a>
-		<a href="/lectureEvaluation/emailSendAction.jsp" class="btn btn-warning" style="color:white;" >이메일 인증</a>
+		<a href="/lectureEvaluation/emailSendAction.jsp?" class="btn btn-warning" style="color:white;" >이메일 인증</a>
 	</form>
 	</div>
 	</div>

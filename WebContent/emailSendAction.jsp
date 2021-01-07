@@ -1,3 +1,4 @@
+<% request.setCharacterEncoding("UTF-8"); %>
 <%@page import="javax.mail.Transport"%>
 <%@page import="javax.mail.Message"%>
 <%@page import="javax.mail.internet.InternetAddress"%>
@@ -11,7 +12,6 @@
 <%@page import="user.User"%>
 <%@page import="user.UserDAO"%>
 <%@page import="java.io.PrintWriter"%>
-<% request.setCharacterEncoding("UTF-8"); %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -22,10 +22,24 @@
 </head>
 <body>
 <% 
+		
+
 		UserDAO dao = new UserDAO();
+		/* String code1 = null;
+		if(request.getParameter("code") != null){
+			code1 = request.getParameter("code");
+		}
+		
+		PrintWriter ss = response.getWriter();
+		ss.println("<script>");
+		ss.println("alert('"+code1+"')");
+		ss.println("</script>"); */
+
 		String userId = null;	
 		if(session.getAttribute("principal") !=null){
 			userId = (String) session.getAttribute("principal");
+			// session 값은 기본적으로 object 이기 때문에
+			// String 으로 형변환을 해줘야한다.
 		}
 		
 		if(userId == null) {
@@ -37,8 +51,9 @@
 			script.close();
 			return;
 		}
-		boolean emailChecked = dao.getUserEmailChecked(userId);
 		
+		boolean emailChecked = dao.getUserEmailChecked(userId);
+		//아마 회원 수정란에서 이메일 인증 눌렸을 때 
 		if(emailChecked == true){
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
@@ -56,6 +71,7 @@
 		String content ="다음 링크에 접속하여 이메일 인증을 진행하세요" +	
 		"<a href= '"+host+"emailCheckAction.jsp?code="+ code+"'>이메일 인증하기</a>";
 		
+		// 네이버 메일함에 오는 제목과 내용이다.
 		Properties p = new Properties();
 		p.put("mail.smtp.user", from);
 		p.put("mail.smtp.host","smtp.googlemail.com");
@@ -79,6 +95,7 @@
 			msg.addRecipient(Message.RecipientType.TO, toAddr);
 			msg.setContent(content,"text/html;charset=UTF-8");
 			Transport.send(msg);
+			
 		}catch(Exception  e){
 				PrintWriter script = response.getWriter();
 				script.println("<script>");

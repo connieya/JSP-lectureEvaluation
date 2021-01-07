@@ -139,6 +139,7 @@ public class UserDAO {
 		return false;
 		
 	}
+	//이메일값 가져오기
 	
 	public String getUserEmail(String userId) {
 			System.out.println("getUserEmail 메서드 호출");
@@ -189,6 +190,7 @@ public class UserDAO {
 				System.out.println("rs next");
 				System.out.println("DB 2번 항목 : "+ rs.getString(2));
 				System.out.println("DB 4번 항목 : "+rs.getString(4));
+				System.out.println("DB 6번 항목 : "+rs.getString(6));
 				return user;
 			}else {
 				System.out.println("해당 유저 정보가 없습니다");

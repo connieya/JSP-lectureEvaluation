@@ -18,7 +18,7 @@
 	
 		<section class="container">
 	<form method="get" action="./index.jsp" class="form-inline mt-3">
-		<select name="LectureDivide" class="form-control mx-1 mt-2">
+		<select name="lectureDivide" class="form-control mx-1 mt-2">
 			<option value="전체">전체</option>
 			<option value="전공">전공</option>
 			<option value="교양">교양</option>
@@ -68,7 +68,7 @@
 					</button>
 				</div><!--  modal header -->
 				<div class="modal-body">
-					<form action="./evaluationRegisterAction.jsp" method="post">
+					<form action="/lectureEvaluation/evaluation/evaluationRegisterAction.jsp" method="post">
 						<div class="form-row">
 							<div class="form-group col">
 								<label for="">강의명</label>
@@ -106,7 +106,7 @@
 					</div>
 						<div class="form-group col-sm-4">
 						<label for="">강의 구분</label>
-						<select name="LectureDivide" id="" class="form-control">
+						<select name="lectureDivide" id="" class="form-control">
 								<option value="전공">전공</option>
 								<option value="교양" selected>교양</option>
 								<option value="기타">기타</option>
@@ -135,7 +135,7 @@
 				 	</div>
 				 	<div class="form-group col-sm-3">
 				 		<label for="">재미</label>
-				 		<select name="totalscore" class="form-control">
+				 		<select name="joyscore" class="form-control">
 				 			<option value="A" >A</option>
 				 			<option value="B" >B</option>
 				 			<option value="C" >C</option>
@@ -146,7 +146,7 @@
 				 	</div>
 				 	<div class="form-group col-sm-3">
 				 		<label for="">강의</label>
-				 		<select name="totalscore" class="form-control">
+				 		<select name="lecturescore" class="form-control">
 				 			<option value="A" >A</option>
 				 			<option value="B" >B</option>
 				 			<option value="C" >C</option>
