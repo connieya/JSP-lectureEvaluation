@@ -3,6 +3,7 @@ package lecture;
 public class Lecture {
 	
 	private int evaluationNo;
+	private String userId;
 	private String lectureName; // 강의명
 	private String professorName; // 교수이름
 	private int lectureYear; //  수강연도 (2013 ~ 2021)
@@ -13,8 +14,23 @@ public class Lecture {
 	private String totalscore; // 총점
 	private String joyscore; // 재미 점수
 	private String lecturescore; // 강의 점수
+	private int likeCount;
 	
 	
+	
+	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public int getLikeCount() {
+		return likeCount;
+	}
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
 	public int getEvaluationNo() {
 		return evaluationNo;
 	}

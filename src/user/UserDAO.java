@@ -36,6 +36,14 @@ public class UserDAO {
 			System.out.println("회원가입 실패");
 			e.printStackTrace();
 			
+		}finally {
+			try {
+			
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+		}catch(Exception e1) {
+			e1.printStackTrace();
+		}
 		}
 		
 		return -1;

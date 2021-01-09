@@ -1,5 +1,10 @@
+<%@page import="java.io.PrintWriter"%>
+<%@page import="lecture.Lecture"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="lecture.LectureDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +21,13 @@
 <%@ include file="components/header.jsp" %>
 <br/>
 	
+	<%
+		String userId = null;
+		if(session.getAttribute("principal") !=null){
+			userId = (String) session.getAttribute("principal");
+		}
+	%>
+
 		<section class="container">
 	<form method="get" action="./index.jsp" class="form-inline mt-3">
 		<select name="lectureDivide" class="form-control mx-1 mt-2">
@@ -26,26 +38,56 @@
 		</select>
 		<input type="text" name="search" class="form-control mx-1 mt-2" placeholder="내용을 입력하세요"/>
 		<button type="submit" class="btn btn-primary mx-1 mt-2">검색</button>
-		<a href="#registerModal" class="btn btn-primary mx-1 mt-2" data-toggle="modal">등록하기</a>
+		<% if(userId == null){
+		
+			
+			%>
+		<a href="/lectureEvaluation/user/login.jsp" class="btn btn-primary mx-1 mt-2" data-toggle="modal" onclick="alert('로그인 후 사용 가능합니다.')" >등록하기</a>
+		<a href="#" class="btn btn-danger mx-1 mt-2" data-toggle="modal" onclick="alert('로그인 후 사용 가능합니다.')">신고하기</a>	
+		<%
+		}else{
+			
+		
+		%>
+		<a href="#registerModal" class="btn btn-primary mx-1 mt-2" data-toggle="modal" >등록하기</a>
 		<a href="#reportModal" class="btn btn-danger mx-1 mt-2" data-toggle="modal">신고하기</a>
+		<%
+		}
+		%>
 	</form>
+	
+		<%
+		LectureDAO lecuture = new LectureDAO();
+		
+		ArrayList<Lecture> e = new ArrayList<Lecture>();
+		e = lecuture.강의목록();
+
+		for(int i=0; i<e.size(); i++){
+			
+		
+	%>
+	
 	<div class="card bg-light mt-3">
 		<div class="card-header bg-light">
 		 	<div class="row">
-		 		<div class="col-8 text-left">컴퓨터개론&nbsp;<small>박건희</small></div>
+		 		<div class="col-8 text-left"><%=e.get(i).getLectureName() %>&nbsp;[<%=e.get(i).getLectureDivide() %>]<small><%=e.get(i).getProfessorName() %></small></div>
 		 		<div class="col-4 text-right">
-		 			총합<span style="color:red;">A</span>
+		 			<p style="font-style: italic; "><%=e.get(i).getEvaluationNo() %></p>
 		 		</div>
 		 	</div>
 		</div>
 		<div class="card-body">
-			<h5 class="card-title">정말 좋은 강의에요&nbsp;<small>(2017년 가을학기)</small></h5>
-			<p class="card-text">강의가 널널하고 학점도 잘 줍니다.</p>
+			<div class="row">
+			<h5 class="col-8 text-left"><%=e.get(i).getEvaluationTitle() %>&nbsp;<small>(<%=e.get(i).getLectureYear() %>&nbsp;<%=e.get(i).getSemesterDivide() %>)</small></h5>
+			<p class="col-4 text-right" style="font-style: italic;">작성자:&nbsp;<%= e.get(i).getUserId() %></p>
+			</div>
+			<p class="card-text"><%=e.get(i).getEvaluationContent() %></p>
 			<div class="row">
 				<div class="col-9 text-left">
-				  강의<span style="color:red;">A</span>
-				  재미<span style="color:red;'">B</span>
-				  <span style="color:green;">(추천:16)</span>
+				  총합<span style="color:red;"><%=e.get(i).getTotalscore() %></span>	
+				  강의<span style="color:red;"><%=e.get(i).getLecturescore() %></span>
+				  재미<span style="color:red;'"><%=e.get(i).getJoyscore() %></span>
+				  <span style="color:green;">(추천:<%=e.get(i).getLikeCount() %>)</span>
 				</div>
 				<div class="col-3 text-right">
 					<a href="./likeAction.jsp?evaluationId" onclick="return confirm('추천 하시겠습니까?')">추천</a>
@@ -54,10 +96,15 @@
 			</div>
 		</div>
 	</div>
+	<% 
+	}
+	%>
+	
+	
 	</section>
 	
-	
 	<!-- 강의 평가 모달 -->
+	
 	<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
 		<div class="modal-dialog" >
 			<div class="modal-content">
@@ -184,7 +231,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form action="./reportAction.jsp" method="post">
+					<form action="/lectureEvaluation/evaluation/reportAction.jsp" method="post">
 	
 				<div class="form-group">
 					<label for="">신고 제목</label>
