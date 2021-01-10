@@ -30,13 +30,13 @@ public class LectureDAO {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setNString(1, userId);
-			pstmt.setNString(2, lecture.getLectureName());
-			pstmt.setNString(3, lecture.getProfessorName());
+			pstmt.setNString(2, lecture.getLectureName().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n","<br>"));
+			pstmt.setNString(3, lecture.getProfessorName().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n","<br>"));
 			pstmt.setInt(4, lecture.getLectureYear());
 			pstmt.setNString(5, lecture.getSemesterDivide());
 			pstmt.setNString(6, lecture.getLectureDivide());
-			pstmt.setNString(7, lecture.getEvaluationTitle());
-			pstmt.setNString(8, lecture.getEvaluationContent());
+			pstmt.setNString(7, lecture.getEvaluationTitle().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n","<br>"));
+			pstmt.setNString(8, lecture.getEvaluationContent().replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n","<br>"));
 			pstmt.setNString(9, lecture.getTotalscore());
 			pstmt.setNString(10, lecture.getLecturescore());
 			pstmt.setNString(11, lecture.getJoyscore());
