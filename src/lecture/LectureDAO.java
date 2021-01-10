@@ -22,8 +22,8 @@ public class LectureDAO {
 		System.out.println("userId :  "+userId);
 		System.out.println("lecture 객체 : " +lecture);
 		String sql = "insert into evaluation"
-				+ "(userId, lectureName,professorName,lectureYear,semesterDivide,lectureDivide, evaluationTitle, evaluationContent, totalScore ,lectureScore, joyScore) "
-				+ "values(?,?,?,?,?,?,?,?,?,?,?)";
+				+ "(userId, lectureName,professorName,lectureYear,semesterDivide,lectureDivide, evaluationTitle, evaluationContent, totalScore ,lectureScore, joyScore,likeCount) "
+				+ "values(?,?,?,?,?,?,?,?,?,?,?,0)";
 		
 		conn = DatabaseUtill.dbPool();
 		
@@ -106,6 +106,69 @@ public class LectureDAO {
 		return lecture;
 	}
 	
+	
+	public ArrayList<Lecture> 검색결과(String lectureDivide ,String searchType , String  search , int pageNumber){
+		System.out.println("검색 결과 메서드");
+		if(lectureDivide.equals("전체")) {
+			lectureDivide = "";
+		}
+		ArrayList<Lecture> evaluationlist = null;
+		
+		String sql = "";
+		try {
+			System.out.println("lecturDivde 값은: "+lectureDivide);
+			System.out.println("searchType 값은: "+searchType);
+			if(searchType.equals("최신순")) {
+				sql = "select * from evaluation where lectureDivide like ? and concat(lectureName ,professorName,evaluationTitle, evaluationContent) like" +
+						"? order by evaluationNo desc limit " +pageNumber*5+","+ pageNumber*5+6;
+			}else if(searchType.equals("추천순")) {
+				sql = "select * from evaluation where lectureDivide like ? and concat(lectureName ,professorName,evaluationTitle, evaluationContent) like" +
+						"? order by likeCount desc limit " +pageNumber*5+","+ pageNumber*5+6;
+						
+			}
+			 conn = DatabaseUtill.dbPool();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+lectureDivide+"%");
+			pstmt.setString(2, "%"+search+"%");
+			
+			rs = pstmt.executeQuery(); //select 할 때
+			evaluationlist = new ArrayList<Lecture>();
+			while(rs.next()) {
+				Lecture evaulation = new Lecture(
+							rs.getInt(1),
+							rs.getString(2),
+							rs.getString(3),
+							rs.getString(4),
+							rs.getInt(5),
+							rs.getString(6),
+							rs.getString(7),
+							rs.getString(8),
+							rs.getString(9),
+							rs.getString(10),
+							rs.getString(11),
+							rs.getString(12),
+							rs.getInt(13)		
+						);
+				evaluationlist.add(evaulation);
+			}
+			
+			
+		}catch(Exception e){
+			System.out.println("오류가 발생했다리");
+			e.printStackTrace();
+			
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+		}catch(Exception e1) {
+			e1.printStackTrace();
+		}
+		}
+		
+		return evaluationlist; 
+	}
 	
 	
 

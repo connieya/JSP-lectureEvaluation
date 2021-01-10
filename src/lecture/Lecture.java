@@ -105,8 +105,27 @@ public class Lecture {
 				+ evaluationContent + ", totalscore=" + totalscore + ", joyscore=" + joyscore + ", lecturescore="
 				+ lecturescore + "]";
 	}
+	public Lecture(int evaluationNo, String userId, String lectureName, String professorName, int lectureYear,
+			String semesterDivide, String lectureDivide, String evaluationTitle, String evaluationContent,
+			String totalscore, String joyscore, String lecturescore, int likeCount) {
+		this.evaluationNo = evaluationNo;
+		this.userId = userId;
+		this.lectureName = lectureName;
+		this.professorName = professorName;
+		this.lectureYear = lectureYear;
+		this.semesterDivide = semesterDivide;
+		this.lectureDivide = lectureDivide;
+		this.evaluationTitle = evaluationTitle;
+		this.evaluationContent = evaluationContent;
+		this.totalscore = totalscore;
+		this.joyscore = joyscore;
+		this.lecturescore = lecturescore;
+		this.likeCount = likeCount;
+	}
 	
-	
+	public Lecture() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	
 
