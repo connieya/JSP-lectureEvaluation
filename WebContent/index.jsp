@@ -53,8 +53,7 @@
 			userId = (String) session.getAttribute("principal");
 		}
 	%>
-	<p>lectureDivide 값이 넘어오나요??? >><%=lectureDivide %></p>
-	<p>searchType 값이 넘어오나요??? >><%=searchType %></p>
+	
 		<section class="container">
 	<form method="get" action="./index.jsp" class="form-inline mt-3">
 		<select name="lectureDivide" class="form-control mx-1 mt-2">
@@ -113,7 +112,7 @@
 		<div class="card-body">
 			<div class="row">
 			<h5 class="col-8 text-left"><%=evaluationList.getEvaluationTitle() %>&nbsp;<small>(<%=evaluationList.getLectureYear() %>&nbsp;<%=evaluationList.getSemesterDivide()%>)</small></h5>
-			<p class="col-4 text-right" style="font-style: italic;">작성자:&nbsp;<%= evaluationList.getUserId() %></p>
+			<p class="col-4 text-right " style="font-style: italic;">작성자:&nbsp;<%= evaluationList.getUserId() %></p>
 			</div>
 			<p class="card-text"><%=evaluationList.getEvaluationContent() %></p>
 			<div class="row">
@@ -124,8 +123,9 @@
 				  <span style="color:green;">(추천:<%=evaluationList.getLikeCount() %>)</span>
 				</div>
 				<div class="col-3 text-right">
-					<a href="./likeAction.jsp?evaluationId" onclick="return confirm('추천 하시겠습니까?')">추천</a>
-					<a href="./DeleteAction.jsp?evaluationId" onclick="return confirm('삭제 하시겠습니까?')">삭제</a>				
+					
+					<a href="/lectureEvaluation/evaluation/likeAction.jsp?evaluationNo=<%=evaluationList.getEvaluationNo() %>" onclick="return confirm('추천 하시겠습니까?')">추천</a>
+					<a href="evaluation/DeleteAction.jsp?evaluationNo=<%=evaluationList.getEvaluationNo() %>" onclick="return confirm('삭제 하시겠습니까?')">삭제</a>				
 				</div>
 			</div>
 		</div>
@@ -189,11 +189,11 @@
 					<form action="/lectureEvaluation/evaluation/evaluationRegisterAction.jsp" method="post">
 						<div class="form-row">
 							<div class="form-group col">
-								<label for="">강의명</label>
+								<label >강의명</label>
 								<input type="text" name="lectureName" class="form-control" maxlength="40" />
 							</div>
 							<div class="form-group col">
-								<label for="">교수명</label>
+								<label >교수명</label>
 								<input type="text" name="professorName" class="form-control" maxlength="40" />
 							</div>
 						</div>
@@ -231,7 +231,7 @@
 						</select>
 					</div>
 				</div><!--  div form row -->
-				<div class="form-group col">
+				<div class="form-group col-md-8">
 					<label for="">제목</label>
 					<input type="text" name="evaluationTitle" class="form-control" maxlength="40" />
 				</div>

@@ -37,7 +37,7 @@
 	
   <ul class="navbar-nav">
     <li class="nav-item active">
-      <a class="nav-link" href="/lectureEvaluation/index.jsp">Home</a>
+      <a class="nav-link " href="/lectureEvaluation/index.jsp">Home</a>
     </li>
     <% if(principal == null) 
     {
@@ -66,8 +66,8 @@
   </ul>
   
   
-   <form class="form-inline justify-content-end" action="/lectureEvaluation/index.jsp">
-    <input class="form-control mr-sm-2" name="search" type="text" placeholder="Search">
+   <form class="form-inline justify-content-end text-right" action="/lectureEvaluation/index.jsp">
+    <input class="form-control mr-sm-2 text-primary" name="search" type="text" placeholder="Search">
     <button class="btn btn-success" type="submit">Search</button>
   </form>
 </nav>

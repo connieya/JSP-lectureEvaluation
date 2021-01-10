@@ -170,6 +170,95 @@ public class LectureDAO {
 		return evaluationlist; 
 	}
 	
+	//추천수를 올리는 함수
+	public int like(String evaluationNo) {
+	String sql ="update evaluation set likeCount = likeCount +1 where evaluationNo=?";
+			
+			try {
+				conn = DatabaseUtill.dbPool();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, evaluationNo);	
+				
+				
+				return pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				try {
+					if(rs != null) rs.close();
+					if(pstmt != null) pstmt.close();
+					if(conn != null) conn.close();
+			}catch(Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+			
+			return -1;
+			
+		
+		}
+	
+	
+	public int delete(String evaluationNo) {
+		String sql ="delete from evaluation where evaluationNo=?";
+				
+				try {
+					conn = DatabaseUtill.dbPool();
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, evaluationNo);	
+					
+					
+					return pstmt.executeUpdate();
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}finally {
+					try {
+						if(rs != null) rs.close();
+						if(pstmt != null) pstmt.close();
+						if(conn != null) conn.close();
+				}catch(Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+				
+				return -1;
+				
+			
+			}
+		
+	//유저 아이디 값 들고오기
+	public String getUserId(String evaluationNo) {
+		System.out.println("유저 아이디 값 가져오기");
+		String sql = "select userId from evaluation where evaluationNo = ?";
+		try {
+			conn= DatabaseUtill.dbPool();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,evaluationNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+		
+				return rs.getString(1);
+			}else {
+				System.out.println("해당 유저 정보가 없습니다");
+				return null;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+		}catch(Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+		
+		return null;
+	}
 	
 
 }
