@@ -15,7 +15,7 @@
 - [회원가입](https://github.com/gunny6026/JSP-lectureEvaluation/blob/master/WebContent/user/README.md)
 
 
-## 기술
+## 기타
 
 - [XSS 공격 방어](src/lecture/README.md)
 
