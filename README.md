@@ -12,7 +12,7 @@
 
 `상대 경로`
 
-```
+```html
 <ul class="navbar-nav">
     <li class="nav-item active">
       <a class="nav-link" href="../index.jsp">Home</a>
@@ -29,7 +29,7 @@
   </ul>
 ```
 `절대 경로`
-```
+```html
 <ul class="navbar-nav">
     <li class="nav-item active">
       <a class="nav-link" href="/lectureEvaluation/index.jsp">Home</a>
@@ -53,7 +53,7 @@
 
 `기존의 DB연동`
 
-```
+```java
 public UserDAO() {
 		try {
 			String url = "jdbc:mysql://localhost:3306/pgh";
@@ -81,7 +81,7 @@ public UserDAO() {
 ```
 
 
-```
+```java
 Connection connection;
 	PreparedStatement pstmt;
 	ResultSet rs;
@@ -107,7 +107,7 @@ Connection connection;
 
 `DB Pool 사용`
 
-```
+```java
 package utill;
 
 import java.sql.Connection;
@@ -158,7 +158,7 @@ public int join(User user) {
 
 null vs ""
 
-```
+```java
 if(userId == "" || userPassword =="" || userEmail=="" || userName =="") {
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
@@ -181,7 +181,7 @@ null = no vaule <br/>
 강의 등록 할 때 <script> 태그를 넣어 사이트를 공격할 수 있다.
 <br/> XSS 공격에 방어하기 위해 <script> 태그를 다른 문자로 치환해서 방어해보자 <br/>
 
-```
+```java
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setNString(1, userId);
 			pstmt.setNString(2, lecture.getLectureName().replaceAll("<", "&alt;").replaceAll(">", "&gt;").replaceAll("\r\n","<br>"));
