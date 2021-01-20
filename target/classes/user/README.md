@@ -83,3 +83,17 @@ public class DatabaseUtill {
 }
 }
 
+
+
+UserDAO.java
+
+public int join(User user) {
+		String sql = "insert into user(userId,userName,userPassword,userEmail) values(?,?,?,?)";
+		try {
+			Connection conn = DatabaseUtill.dbPool();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user.getUserId());
+			pstmt.setString(2,user.getUserName());
+			pstmt.setString(3,user.getUserPassword());
+			pstmt.setString(4,user.getUserEmail());
+```
