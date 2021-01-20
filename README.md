@@ -4,8 +4,8 @@
 
 ## 디버깅
 
-- [경로설정](WebContent/components/README.md)
-
+- [페이지전환 경로](WebContent/components/README.md)
+- [MVC패턴 servlet경로](src/web/README.md)
 
 ## 환경설정
 
@@ -15,7 +15,7 @@
 - [회원가입](https://github.com/gunny6026/JSP-lectureEvaluation/blob/master/WebContent/user/README.md)
 
 
-## 추가 기능
+## 기술
 
 - [XSS 공격 방어](src/lecture/README.md)
 

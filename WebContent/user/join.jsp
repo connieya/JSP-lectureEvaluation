@@ -15,10 +15,10 @@
 <body>
 <%@ include file="../components/header.jsp" %>
 <br/>
-	<div class="container" style="text-align: center;" >
+	<div class="container" style="text-align: center;" > 
 	<div class="jumbotron">
 		<h1>회원 가입 페이지</h1>
-	<form action="userRegisterAction.jsp" method="post">
+	<form action="/lectureEvaluation/user?cmd=join" method="post">
 		<div class="form-group">
 			<label for="userId">아이디</label> 
 			<input type="text"
