@@ -19,3 +19,6 @@
 
 - [XSS 공격 방어](src/lecture/README.md)
 
+## 개념
+
+- [MIME 타입실습](src/test)
