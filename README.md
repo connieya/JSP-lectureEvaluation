@@ -13,7 +13,7 @@
 
 ## user
 - [회원가입](https://github.com/gunny6026/JSP-lectureEvaluation/blob/master/WebContent/user/README.md)
-
+- [아이디 중복체크](src/Readme.md)
 
 ## 기타
 
