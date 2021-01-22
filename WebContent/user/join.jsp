@@ -10,6 +10,11 @@
 		width: 40%;
 		margin: 0 auto;
 	}
+	#check{
+	
+		display: grid ;
+		
+	}
 </style>
 </head>
 <body>
@@ -18,12 +23,19 @@
 	<div class="container" style="text-align: center;" > 
 	<div class="jumbotron">
 		<h1>회원 가입 페이지</h1>
-	<form action="/lectureEvaluation/user?cmd=join" method="post">
-		<div class="form-group">
+	<form action="/lectureEvaluation/user?cmd=join" method="post" onsubmit="return valid()">
+		<div class="form-group" id="check">
+			<div>
 			<label for="userId">아이디</label> 
 			<input type="text"																	
 				class="form-control " maxlength="13"  placeholder="아이디를 입력하세요" id="userId" name="userId" required/>
+			</div>
+			<div>
+			<button class="btn-info"  onclick="idCheck()" >아이디 중복검사</button>
+			</div>			
 		</div>
+		
+		
 		<div class="form-group">
 			<label for="userName">이름</label> 
 			<input type="text"
@@ -51,7 +63,22 @@
 	</div>
 	</div>
 	<script>
+	var isChecking = false;
 	
+	function valid(){
+		
+		if(isChecking){
+		alert("ss")
+		return false;
+		}else{
+			return true;
+		}
+			
+	}
+	
+	function idCheck(){
+		
+	}
 	
 // opener관련 오류가 발생하는 경우 아래 주석을 해지하고, 사용자의 도메인정보를 입력합니다. ("팝업API 호출 소스"도 동일하게 적용시켜야 합니다.)
 //document.domain = "abc.go.kr";

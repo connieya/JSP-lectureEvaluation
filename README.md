@@ -23,3 +23,4 @@
 ## 개념
 
 - [MIME 타입실습](src/test)
+- [ajax](src/utill/Readmd.md)
