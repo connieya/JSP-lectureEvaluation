@@ -1,3 +1,4 @@
+<%@page import="java.io.PrintWriter"%>
 <%@page import="utill.SHA256"%>
 <%@page import="user.User"%>
 <%@page import="user.UserDAO"%>
@@ -21,10 +22,17 @@
 	String pr = null;
 	if(session.getAttribute("principal") != null){
 		pr = (String) session.getAttribute("principal");
+	}else{
+		PrintWriter script = response.getWriter();
+		script.println("<script>");
+		script.println("alert('세션이 만료 되었습니다. 다시 로그인해주세요')");
+		script.println("history.back()");
+		script.println("</script>");
 	}
 	
 	UserDAO dao = new UserDAO();
 
+	
 
 	User user = new User();
 	user = dao.getUser(pr);

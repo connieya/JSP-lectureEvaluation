@@ -17,5 +17,9 @@ public class UserService {
 		return result;
 	}
 	
+	public User 로그인(User user) {
+		
+		return null;
+	}
 
 }

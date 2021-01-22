@@ -1,11 +1,15 @@
 package web;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.catalina.Session;
 
 import Service.UserService;
 import user.User;
@@ -43,13 +47,14 @@ public class UserController extends HttpServlet {
 		
 		}
 	
-	
+	//http://localhost:8080/blog/user?cmd=''''
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html; charset=utf-8");
-		
+			Session session;
 			System.out.println("doProcess 호출");
 			String cmd = request.getParameter("cmd");
+			// 커맨드 요청
 			
 			System.out.println("cmd 값은 : " +cmd);
 			UserService userService = new UserService();
@@ -76,6 +81,15 @@ public class UserController extends HttpServlet {
 				}else {
 					Script.back(response, "회원가입 실패");
 				}
+			}else if(cmd.equals("login")) {
+				String userId = request.getParameter("userId");
+				String userPassword = request.getParameter("userPassword");
+				User user = new User();
+				
+				user.setUserId(userId);
+				user.setUserPassword(userPassword);
+				
+				
 			}
 			
 		}
