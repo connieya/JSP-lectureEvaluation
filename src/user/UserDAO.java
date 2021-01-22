@@ -15,7 +15,7 @@ public class UserDAO {
 	
 	//회원가입
 	public int join(User user) {
-		String sql = "insert into user(userId,userName,userPassword,userEmail,userEmailHash,userEmailChecked) values(?,?,?,?,?,false)";
+		String sql = "insert into user(userId,userName,userPassword,userAddr,userEmail,userEmailHash,userEmailChecked) values(?,?,?,?,?,?,false)";
 		try {
 			Connection conn = DatabaseUtill.dbPool();
 			PreparedStatement pstmt ;
@@ -25,10 +25,10 @@ public class UserDAO {
 			pstmt.setString(1, user.getUserId());
 			pstmt.setString(2,user.getUserName());
 			pstmt.setString(3,user.getUserPassword());
-			pstmt.setString(4,user.getUserEmail());
-			pstmt.setString(5, user.getUserEmailHash());
+			pstmt.setString(4, user.getUserAddr());
+			pstmt.setString(5,user.getUserEmail());
+			pstmt.setString(6, user.getUserEmailHash());
 			System.out.println("이메일 해쉬값 : " + user.getUserEmailHash());
-			System.out.println("회원가입  성공");
 			
 			
 			return  pstmt.executeUpdate();

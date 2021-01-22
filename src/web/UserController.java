@@ -64,6 +64,7 @@ public class UserController extends HttpServlet {
 				String userName = request.getParameter("userName");
 				String userPassword = request.getParameter("userPassword");
 				String userEmail = request.getParameter("userEmail");
+				String userAddr = request.getParameter("userAddr");
 				
 				User user = new User();
 				user.setUserId(userId);
@@ -71,13 +72,21 @@ public class UserController extends HttpServlet {
 				user.setUserPassword(userPassword);
 				user.setUserEmail(userEmail);
 				user.setUserEmailHash(SHA256.getSHA256(userEmail));
+				user.setUserAddr(userAddr);
 				
-				System.out.println("회원가입 : " +user);
+				//System.out.println("회원가입 : " +user);
 				
 				int result = userService.회원가입(user);
 				if(result ==1) {
-					Script.responseData(response, "회원가입 성공");
-					response.sendRedirect("index.jsp");
+					PrintWriter script = response.getWriter();
+					script.println("<script>");
+					script.println("alert('회원가입이 완료 되었습니다.')");
+					script.println("location.href ='/lectureEvaluation/index.jsp'");
+					script.println("</script>");
+					script.close();
+					//Script.responseData(response, "회원가입 성공");
+					//response.sendRedirect("/lectureEvaluation/index.jsp");
+					
 				}else {
 					Script.back(response, "회원가입 실패");
 				}

@@ -1,5 +1,10 @@
 package user;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 	
 	private int userNo;
@@ -8,6 +13,7 @@ public class User {
 	private String userPassword;
 	private String userEmail;
 	private String userEmailHash;
+	private String userAddr;
 	private Boolean userEmailChecked;
 	
 	
@@ -15,6 +21,12 @@ public class User {
 	
 	
 	
+	public String getUserAddr() {
+		return userAddr;
+	}
+	public void setUserAddr(String userAddr) {
+		this.userAddr = userAddr;
+	}
 	public int getUserNo() {
 		return userNo;
 	}
@@ -57,28 +69,11 @@ public class User {
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
-	
-	
-	
-	public User() {
-		// TODO Auto-generated constructor stub
-	}
-	public User(int userNo, String userId, String userName, String userPassword, String userEmail, String userEmailHash,
-			Boolean userEmailChecked) {
-		super();
-		this.userNo = userNo;
-		this.userId = userId;
-		this.userName = userName;
-		this.userPassword = userPassword;
-		this.userEmail = userEmail;
-		this.userEmailHash = userEmailHash;
-		this.userEmailChecked = userEmailChecked;
-	}
 	@Override
 	public String toString() {
 		return "User [userNo=" + userNo + ", userId=" + userId + ", userName=" + userName + ", userPassword="
-				+ userPassword + ", userEmail=" + userEmail + ", userEmailHash=" + userEmailHash + ", userEmailChecked="
-				+ userEmailChecked + "]";
+				+ userPassword + ", userEmail=" + userEmail + ", userEmailHash=" + userEmailHash + ", userAddr="
+				+ userAddr + ", userEmailChecked=" + userEmailChecked + "]";
 	}
 	
 	
