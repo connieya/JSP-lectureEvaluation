@@ -22,5 +22,19 @@ public class UserService {
 		
 		return null;
 	}
-
+	
+	public String 아이디중복체크(String userId) {
+		
+		String result = userDao.idCheck(userId);
+		System.out.println("result : " +result  );
+		if(result.equals("ok")) {
+			System.out.println("아이디 중복");
+			
+			return "ok";
+			
+		}
+		
+		return "no";
+		
+	}
 }

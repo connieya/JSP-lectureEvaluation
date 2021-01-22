@@ -16,6 +16,7 @@
 		
 	}
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <%@ include file="../components/header.jsp" %>
@@ -31,11 +32,9 @@
 				class="form-control " maxlength="13"  placeholder="아이디를 입력하세요" id="userId" name="userId" required/>
 			</div>
 			<div>
-			<button class="btn-info"  onclick="idCheck()" >아이디 중복검사</button>
+			<button class="btn-info"  type="button" onclick="idCheck()" >아이디 중복검사</button>
 			</div>			
 		</div>
-		
-		
 		<div class="form-group">
 			<label for="userName">이름</label> 
 			<input type="text"
@@ -67,41 +66,62 @@
 	
 	function valid(){
 		
-		if(isChecking){
-		alert("ss")
-		return false;
-		}else{
-			return true;
+		if(isChecking == false){
+			alert("아이디 중복체크를 해주세요")
 		}
+		
+		return isChecking;
+		
 			
 	}
 	
 	function idCheck(){
 		
+		
+		var userId = $("#userId").val();
+		console.log("userId: ",userId)
+		if(userId == ""){
+			alert("아이디를 입력하세요")
+		}else{
+			$.ajax({
+				type : "post",
+				url : "/lectureEvaluation/user?cmd=idCheck",
+				data : userId,
+				contentType :"/text/plain; charset=utf-8",
+				dataType : "text"  // 응답 받을 데이터의 타입을 적으면 자바스크립트 오브젝트로 파싱해줌 
+			}).done(function(data){
+				if(data ==="ok"){
+					isChecking = false;
+					alert("이미 사용중인 아이디 입니다.")
+				}else{
+					isChecking = true;
+					alert('사용 가능한 아이디입니다.')
+				}
+			});
+			
+		}
+		
+		
 	}
+		/* 
+		get 방식으로 하면
+		/lectureEvaluation/user?cmd=idCheck&userId=gunny6026  */
 	
-// opener관련 오류가 발생하는 경우 아래 주석을 해지하고, 사용자의 도메인정보를 입력합니다. ("팝업API 호출 소스"도 동일하게 적용시켜야 합니다.)
-//document.domain = "abc.go.kr";
-
 function goPopup(){
-	// 주소검색을 수행할 팝업 페이지를 호출합니다.
-	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(https://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
-	var pop = window.open("/lectureEvaluation/user/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
 	
-	// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(https://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
-    //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
+	var pop = window.open("/lectureEvaluation/user/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+
 }
 
 
 function jusoCallBack(roadFullAddr){
 	
 		var addrEI =document.querySelector("#userAddr")
-		//옛나 방식
+		//옛날 방식
 		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
 		//document.form.roadFullAddr.value = roadFullAddr;
 		addrEI.value =  roadFullAddr
-		
-		
+			
 }
 
 </script>

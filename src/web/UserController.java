@@ -1,5 +1,6 @@
 package web;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -98,6 +99,21 @@ public class UserController extends HttpServlet {
 				user.setUserId(userId);
 				user.setUserPassword(userPassword);
 				
+				
+			}else if(cmd.equals("idCheck")) {
+				// 이걸로는 받을 수 없다 text/plain 이기 때문에
+//				request.getParameter("userId");
+				BufferedReader br = request.getReader();
+				String userId  = br.readLine();
+				System.out.println("userId : "+userId);
+				
+				String result = userService.아이디중복체크(userId);
+				System.out.println("result!!! : "+result);
+				if(result.equals("ok")) {
+					PrintWriter out = response.getWriter();
+					out.print("ok");
+					out.flush();
+				}
 				
 			}
 			

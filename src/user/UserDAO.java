@@ -13,6 +13,27 @@ public class UserDAO {
 	private ResultSet rs;
 	private Connection conn;
 	
+	//아이디 중복체크
+	public String idCheck(String userId) {
+		String sql = "select userId from user where userId = ?";
+		 conn = DatabaseUtill.dbPool();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				System.out.println("아이디 중복 되었음");
+				return "ok";
+			}else {
+				return "no";
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "no";
+	}
+	
 	//회원가입
 	public int join(User user) {
 		String sql = "insert into user(userId,userName,userPassword,userAddr,userEmail,userEmailHash,userEmailChecked) values(?,?,?,?,?,?,false)";
