@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +23,7 @@
 </style>
 </head>
 <body>
-<%
+ <%
 	String principal = null;
 
  if(session.getAttribute("principal") !=null){
@@ -32,27 +33,15 @@
 	 
 
  };
-%>
+%> 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark" >
 	
   <ul class="navbar-nav">
     <li class="nav-item active">
       <a class="nav-link " href="/lectureEvaluation/index.jsp">Home</a>
     </li>
-    <% if(principal == null) 
-    {
-    
-    %>
-    <li class="nav-item">
-      <a class="nav-link" href="/lectureEvaluation/user/join.jsp">회원가입</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/lectureEvaluation/user/login.jsp">로그인</a>
-    </li>
-    <%
-    }else{
-    	
-    %>
+    <c:choose>
+    <c:when test="${sessionScope.principal != null }">
      <li class="nav-item">
       <a class="nav-link" href="/lectureEvaluation/user/userUpdate.jsp?userId=<%=principal %>">회원정보</a>
       
@@ -60,8 +49,37 @@
      <li class="nav-item">
      <a class="nav-link" onclick="return confirm('로그아웃 하시겠습니까?')" href="/lectureEvaluation/user/logout.jsp">로그아웃</a>
    	  </li>
+    
+    </c:when>
+    
+    <c:otherwise>
+     <li class="nav-item">
+      <a class="nav-link" href="/lectureEvaluation/user/join.jsp">회원가입</a>
+    </li>
+    <li class="nav-item">
+      <!-- <a class="nav-link" href="/lectureEvaluation/user/login.jsp">로그인</a>  -->
+     <!--  <a class="nav-link" href="/lectureEvaluation/user/login.jsp?cmd=loginForm">로그인</a>  -->
+     <a class="nav-link" href="<%=request.getContextPath() %>/user/login.jsp?cmd=loginForm">로그인</a>
+     
+    </li>
+    </c:otherwise>
+    </c:choose>
+    
+    <li class="nav-item">
+      <a class="nav-link" href="/lectureEvaluation/board/boardList.jsp">게시판</a>
+    </li>
+     <% if(principal == null) 
+    {
+    
+    %>
+   
     <%
-    }
+    }else{
+    	
+    %>
+    
+    <%
+    } 
     %>
   </ul>
   

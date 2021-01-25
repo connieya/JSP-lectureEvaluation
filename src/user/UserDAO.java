@@ -214,10 +214,13 @@ public class UserDAO {
 			if(rs.next()) {
 				user.setUserName(rs.getString(3));
 				user.setUserId(rs.getString(2));
-				user.setUserEmail(rs.getString(5));
+				user.setUserEmail(rs.getString(6));
+				user.setUserAddr(rs.getString(5));
 				user.setUserPassword(rs.getString(4));
 				System.out.println("rs next");
+				System.out.println("DB 1번 "+ rs.getInt(1));
 				System.out.println("DB 2번 항목 : "+ rs.getString(2));
+				System.out.println("DB 3번 항목 : "+ rs.getString(3));
 				System.out.println("DB 4번 항목 : "+rs.getString(4));
 				System.out.println("DB 6번 항목 : "+rs.getString(6));
 				return user;
@@ -271,17 +274,18 @@ public class UserDAO {
 	
 	
 	//회원수정
-	public int 회원수정(String userId, String userName, String userPassword) {
+	public int 회원수정(String userId, String userName, String userPassword, String userAddr) {
 		System.out.println("회원수정 메서드 호출");
 		System.out.println("userId : " +userId);
-		String sql = "update user set userName =? , userPassword =?  where userId = ?";
+		String sql = "update user set userName =? , userPassword =? , userAddr= ? where userId = ? ";
 		
 		conn = DatabaseUtill.dbPool();
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userName);
 			pstmt.setString(2, userPassword);
-			pstmt.setString(3, userId);
+			pstmt.setString(3, userAddr);
+			pstmt.setString(4, userId);
 			
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {

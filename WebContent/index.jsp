@@ -22,6 +22,7 @@
 <body>
 <%@ include file="components/header.jsp" %>
 <br/>
+<%-- ${sessionScope.principal} --%>
 	
 	<% 
 	    String lectureDivide = "전체";

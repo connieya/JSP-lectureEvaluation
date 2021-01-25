@@ -18,7 +18,12 @@
 			<artifactId>mail</artifactId>
 			<version>1.4.7</version>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>jstl</artifactId>
+		    <version>1.2</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/javax.activation/activation -->
 		 <!--  <dependency>
 			<groupId>javax.activation</groupId>

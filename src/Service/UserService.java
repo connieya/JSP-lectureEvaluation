@@ -18,9 +18,11 @@ public class UserService {
 		return result;
 	}
 	
-	public User 로그인(User user) {
+	public int 로그인(User user) {
 		
-		return null;
+		int result  = userDao.login(user);
+		System.out.println("로그인 결과 :"+result);
+		return result;
 	}
 	
 	public String 아이디중복체크(String userId) {

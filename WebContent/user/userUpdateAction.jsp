@@ -13,6 +13,7 @@
 <%
 	String userName = request.getParameter("userName");
 	String userPassword = request.getParameter("userPassword");
+	String userAddr = request.getParameter("userAddr");
 	//String userId = request.getParameter("pr");
 	
 	String userId = null;
@@ -33,7 +34,7 @@
 
 	
 	UserDAO dao = new UserDAO();
-	int result =dao.회원수정(userId,userName,userPassword);
+	int result =dao.회원수정(userId,userName,userPassword,userAddr);
 	
 	if(result ==1 ){
 		PrintWriter script = response.getWriter();

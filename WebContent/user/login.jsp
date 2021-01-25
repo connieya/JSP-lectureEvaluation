@@ -8,8 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <%@ include file="../components/header.jsp" %>
 
+<!-- 	x-www-form-urlencoded  -->
 	<section class="container mt-5" style="max-width: 560px;">
  	<form action="/lectureEvaluation/user?cmd=login" method="post">  
 	<!-- <form action="./loginAction.jsp" method="post"> -->

@@ -21,6 +21,9 @@ public class User {
 	
 	
 	
+	
+	
+	
 	public String getUserAddr() {
 		return userAddr;
 	}

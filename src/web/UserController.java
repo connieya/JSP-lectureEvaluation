@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.Session;
 
@@ -20,6 +21,9 @@ import utill.Script;
 /**
  * Servlet implementation class UserController
  */
+
+// 요청 경로는 : /lectureEvaluation/user
+// 맵핑 경로 : /user
 @WebServlet("/user")
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -48,11 +52,10 @@ public class UserController extends HttpServlet {
 		
 		}
 	
-	//http://localhost:8080/blog/user?cmd=''''
+	//http://localhost:8090/lectureEvaluation/user?cmd=''''
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html; charset=utf-8");
-			Session session;
 			System.out.println("doProcess 호출");
 			String cmd = request.getParameter("cmd");
 			// 커맨드 요청
@@ -95,9 +98,24 @@ public class UserController extends HttpServlet {
 				String userId = request.getParameter("userId");
 				String userPassword = request.getParameter("userPassword");
 				User user = new User();
-				
 				user.setUserId(userId);
 				user.setUserPassword(userPassword);
+				
+				int result = userService.로그인(user);
+				if(result ==1) {
+					HttpSession session =request.getSession();
+					session.setAttribute("principal", user.getUserId());
+					System.out.println(user);
+					PrintWriter script = response.getWriter();
+					script.println("<script>");
+					script.println("alert('로그인 성공')");
+					script.println("location.href ='/lectureEvaluation/index.jsp'");
+					script.println("</script>");
+					
+				}else {
+					Script.back(response, "로그인 실패");
+				}
+				
 				
 				
 			}else if(cmd.equals("idCheck")) {
@@ -115,6 +133,8 @@ public class UserController extends HttpServlet {
 					out.flush();
 				}
 				
+			}else if(cmd.equals("loginForm")) {
+				response.sendRedirect("/lectureEvaluation/user/login.jsp");
 			}
 			
 		}

@@ -60,13 +60,19 @@
 		<div class="form-group">
 			<label for="userPassword">비밀번호</label> 
 			<input type="password"
-				class="form-control " placeholder="비밀번호를 입력하세요" id="userPassword" name="userPassword" value=<%=user.getUserPassword() %>>
+				class="form-control " placeholder="비밀번호를 입력하세요" id="userPassword" name="userPassword" value=<%=user.getUserPassword() %> maxlength="2048">
+		</div>
+		<div class="form-group">
+			<label for="userAddr">주소</label> 
+			<input type="text"
+				class="form-control" id="userAddr" name="userAddr" value=<%= user.getUserAddr() %>  />
 		</div>
 		<div class="form-group">
 			<label for="userEmail">이메일</label> 
 			<input type="email"
 				class="form-control " placeholder="이메일을 입력하세요" id="userEmail" name="userEmail" value=<%=user.getUserEmail() %> readonly>
 		</div>
+		
 		<input class="btn btn-primary" type="submit" value="회원수정" />
 		<a href="/lectureEvaluation/user/userDeleteAction.jsp?userId=<%=userId %>" class="btn btn-danger" onclick="return confirm('정말 탈퇴 하시겠습니까?')">회원탈퇴</a>
 		<a href="/lectureEvaluation/emailSendAction.jsp?" class="btn btn-warning" style="color:white;" >이메일 인증</a>
