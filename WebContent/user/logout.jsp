@@ -13,7 +13,7 @@
 	%>
 	
 		<script>
-			location.href= "../index.jsp";
+			location.href= "/lectureEvaluation/";
 		</script>
 </body>
 </html>

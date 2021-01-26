@@ -13,7 +13,7 @@
 
 <!-- 	x-www-form-urlencoded  -->
 	<section class="container mt-5" style="max-width: 560px;">
- 	<form action="/lectureEvaluation/user?cmd=login" method="post">  
+ 	<form action="/lectureEvaluation/userServlet?cmd=login" method="post">  
 	<!-- <form action="./loginAction.jsp" method="post"> -->
 		<div class="form-group">
 			<label for="">아이디</label>

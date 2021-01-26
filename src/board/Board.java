@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 public class Board {
 	private int bno;
-	private int userId;
+	private String userId;
 	private String title;
 	private String content;
 	private int readCount; 
@@ -23,11 +23,11 @@ public class Board {
 		this.bno = bno;
 	}
 
-	public int getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
@@ -63,7 +63,7 @@ public class Board {
 		this.createDate = createDate;
 	}
 
-	public Board(int bno, int userId, String title, String content, int readCount, Timestamp createDate) {
+	public Board(int bno, String userId, String title, String content, int readCount, Timestamp createDate) {
 		super();
 		this.bno = bno;
 		this.userId = userId;
@@ -72,6 +72,14 @@ public class Board {
 		this.readCount = readCount;
 		this.createDate = createDate;
 	}
+
+	@Override
+	public String toString() {
+		return "Board [bno=" + bno + ", userId=" + userId + ", title=" + title + ", content=" + content + ", readCount="
+				+ readCount + ", createDate=" + createDate + "]";
+	}
+	
+	
 	
 	
 	

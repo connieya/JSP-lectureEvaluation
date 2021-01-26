@@ -47,11 +47,11 @@
     <c:choose>
     <c:when test="${sessionScope.principal != null }">
      <li class="nav-item">
-      <a class="nav-link" href="/lectureEvaluation/user/userUpdate.jsp?userId=<%=principal %>">회원정보</a>
-      
+    <%--   <a class="nav-link" href="/lectureEvaluation/user/userUpdate.jsp?userId=<%=principal %>">회원정보</a> --%>
+	  <a class="nav-link" href="/lectureEvaluation/userServlet?cmd=userUpdate">회원정보</a>      
     </li>
      <li class="nav-item">
-     <a class="nav-link" onclick="return confirm('로그아웃 하시겠습니까?')" href="/lectureEvaluation/user/logout.jsp">로그아웃</a>
+     <a class="nav-link" onclick="return confirm('로그아웃 하시겠습니까?')" href="/lectureEvaluation/userServlet?cmd=logout">로그아웃</a>
    	  </li>
     
     </c:when>

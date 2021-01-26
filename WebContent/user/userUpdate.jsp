@@ -46,7 +46,8 @@
 	<div class="container" style="text-align: center;" >
 	<div class="jumbotron">
 		<h1>회원 수정</h1>
-	<form action="userUpdateAction.jsp?id=<%=pr %>" method="post">
+	<form action="/lectureEvaluation/userServlet?cmd=userUpdateAction" method="post">
+		<input type="hidden" name="sessionValue" value=<%=pr %>  />
 		<div class="form-group">
 			<label for="userId">아이디</label> 
 			<input type="text"

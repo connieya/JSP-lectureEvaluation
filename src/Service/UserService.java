@@ -39,4 +39,10 @@ public class UserService {
 		return "no";
 		
 	}
+	
+	public int 회원수정(String userId, String userName, String userPassword, String userAddr) {
+		
+		return userDao.회원수정(userId, userName, userPassword, userAddr);
+		
+	}
 }

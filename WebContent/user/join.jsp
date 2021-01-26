@@ -24,7 +24,7 @@
 	<div class="container" style="text-align: center;" > 
 	<div class="jumbotron">
 		<h1>회원 가입 페이지</h1>
-	<form action="/lectureEvaluation/user?cmd=join" method="post" onsubmit="return valid()">
+	<form action="/lectureEvaluation/userServlet?cmd=join" method="post" onsubmit="return valid()">
 		<div class="form-group" id="check">
 			<div>
 			<label for="userId">아이디</label> 

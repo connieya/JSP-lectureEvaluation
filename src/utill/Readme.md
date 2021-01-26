@@ -5,7 +5,7 @@
 - Javascript XML 객체 (기본) 
 - jQuery 라이브러리 - ajax 함수  (이번 프로젝트에서 사용)
 - fetch() 함수    (react.js 에서 사용해봄)
-- axios() 함수  (Vue.js 공부 중에 발견 , 최근에 많이 사용함)
+- axios() 함수  (Vue.js 공부 중에 발견 , 최근에 많이 사용한다고 한다.)
 
 
 ## 정의

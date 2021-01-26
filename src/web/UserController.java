@@ -147,6 +147,33 @@ public class UserController extends HttpServlet {
 						request.getRequestDispatcher("user/join.jsp");
 				
 				dis.forward(request, response);
+			}else if(cmd.equals("logout")) {
+				RequestDispatcher dis =
+						request.getRequestDispatcher("user/logout.jsp");
+				
+				dis.forward(request, response);
+			}else if(cmd.equals("userUpdate")) {
+				RequestDispatcher dis =
+						request.getRequestDispatcher("user/userUpdate.jsp");
+				
+				dis.forward(request, response);
+			}else if(cmd.equals("userUpdateAction")) {
+				String userId = request.getParameter("sessionValue");
+				String userName = request.getParameter("userName");
+				String userPassword = request.getParameter("userPassword");
+				String userAddr = request.getParameter("userAddr");
+				int result =userService.회원수정(userId ,userName, userPassword, userAddr);
+				if(result ==1 ){
+					PrintWriter script = response.getWriter();
+					script.println("<script>");
+					script.println("alert('회원 수정완료')");
+					script.println("location.href='../index.jsp'");
+					script.println("</script>");
+				}else{
+					Script.back(response, "회원수정 실패");
+				}
+				
+			
 			}
 			
 		}

@@ -3,6 +3,7 @@ package web;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,6 +17,7 @@ import org.apache.catalina.Session;
 
 import Service.BoardService;
 import Service.UserService;
+import board.Board;
 import user.User;
 import utill.SHA256;
 import utill.Script;
@@ -73,7 +75,9 @@ public class BoardController extends HttpServlet {
 			
 			if(cmd.equals("boardList")) {
 				//response.sendRedirect("/lectureEvaluation/board/boardForm.jsp");
-
+				 List<Board> boards = boardService.글목록보기();
+				 request.setAttribute("boards", boards);
+				
 				RequestDispatcher dis =
 						request.getRequestDispatcher("board/boardList.jsp");
 				
@@ -96,6 +100,11 @@ public class BoardController extends HttpServlet {
 				}else {
 					Script.back(response, "글등록 실패");
 				}
+			}else if(cmd.equals("boardForm")) {
+				RequestDispatcher dis =
+						request.getRequestDispatcher("board/boardForm.jsp");
+				
+				dis.forward(request, response);
 			}
 			
 	}

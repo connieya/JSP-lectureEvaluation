@@ -17,7 +17,7 @@
            
            <c:choose>
            	<c:when test="${sessionScope.principal != null }">
-           	  <a class="btn btn-info" href="/lectureEvaluation/board?cmd=boardForm">글쓰기</a>
+           	  <a class="btn btn-info" href="/lectureEvaluation/boardServlet?cmd=boardForm">글쓰기</a>
            	</c:when>
            	<c:otherwise>
            	  <a class="btn btn-info" onclick="NotRegister()">글쓰기</a>
@@ -36,13 +36,15 @@
       </tr>
     </thead>
     <tbody>
+   <c:forEach var="board" items="${boards}">
       <tr>
-        <td>1</td>
-        <td>gunny</td>
-        <td>안녕</td>
-        <td>0</td>
-        <td>2021-01-25</td>
+        <td>${board.bno}</td>
+        <td>${board.userId }</td>
+        <td>${board.title }</td>
+        <td>${board.readCount }</td>
+        <td>${board.createDate}</td>
       </tr>
+    </c:forEach>
      
     </tbody>
   </table>

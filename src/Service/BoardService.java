@@ -1,5 +1,8 @@
 package Service;
 
+import java.util.List;
+
+import board.Board;
 import board.BoardDao;
 
 public class BoardService {
@@ -11,6 +14,14 @@ public class BoardService {
 		int result = dao.write(userId, title,content);
 		
 		return result;
+		
+	}
+	public List<Board> 글목록보기() {
+		
+		BoardDao dao = new BoardDao();
+		List<Board> board = dao.list();
+		System.out.println("board 객체 : " + board);
+		return board;
 		
 	}
 	
