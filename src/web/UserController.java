@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +25,7 @@ import utill.Script;
 
 // 요청 경로는 : /lectureEvaluation/user
 // 맵핑 경로 : /user
-@WebServlet("/user")
+@WebServlet("/userServlet")
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -134,7 +135,18 @@ public class UserController extends HttpServlet {
 				}
 				
 			}else if(cmd.equals("loginForm")) {
-				response.sendRedirect("/lectureEvaluation/user/login.jsp");
+			//	response.sendRedirect("/lectureEvaluation/user/login.jsp");
+//				톰켓에서 나갔다가 다시 들어오기 때문에 필터에서 걸린다. 
+				
+				RequestDispatcher dis =
+						request.getRequestDispatcher("user/login.jsp");
+				
+				dis.forward(request, response);
+			}else if(cmd.equals("joinForm")) {
+				RequestDispatcher dis =
+						request.getRequestDispatcher("user/join.jsp");
+				
+				dis.forward(request, response);
 			}
 			
 		}

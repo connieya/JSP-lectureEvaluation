@@ -1,10 +1,16 @@
 package Service;
 
+import board.BoardDao;
+
 public class BoardService {
 	
 	
-	public void 글쓰기() {
+	public int 글쓰기(String userId , String title , String content) {
+		System.out.println("글쓰기 로직 dao 호출");
+		BoardDao dao = new BoardDao();
+		int result = dao.write(userId, title,content);
 		
+		return result;
 		
 	}
 	

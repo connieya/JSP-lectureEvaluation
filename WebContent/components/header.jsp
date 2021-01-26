@@ -14,6 +14,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
 <style>
 	nav{
 		display:flex;
@@ -54,19 +58,20 @@
     
     <c:otherwise>
      <li class="nav-item">
-      <a class="nav-link" href="/lectureEvaluation/user/join.jsp">회원가입</a>
+      <a class="nav-link" href="/lectureEvaluation/userServlet?cmd=joinForm">회원가입</a>
     </li>
     <li class="nav-item">
       <!-- <a class="nav-link" href="/lectureEvaluation/user/login.jsp">로그인</a>  -->
-     <!--  <a class="nav-link" href="/lectureEvaluation/user/login.jsp?cmd=loginForm">로그인</a>  -->
-     <a class="nav-link" href="<%=request.getContextPath() %>/user/login.jsp?cmd=loginForm">로그인</a>
+     <!--  <a class="nav-link" href="/lectureEvaluation/user?cmd=loginForm">로그인</a>  -->
+     <a class="nav-link" href="<%=request.getContextPath() %>/userServlet?cmd=loginForm">로그인</a>
      
     </li>
     </c:otherwise>
     </c:choose>
     
     <li class="nav-item">
-      <a class="nav-link" href="/lectureEvaluation/board/boardList.jsp">게시판</a>
+      <!-- <a class="nav-link" href="/lectureEvaluation/board/boardList.jsp">게시판</a> 필터걸어놔서 안된다잉~ -->
+    	<a class="nav-link" href="/lectureEvaluation/boardServlet?cmd=boardList">게시판</a>
     </li>
      <% if(principal == null) 
     {
