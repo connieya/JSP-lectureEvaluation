@@ -43,7 +43,10 @@ public class BoardController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request,response);
 	
+		
+		
 	}
+	
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -65,7 +68,6 @@ public class BoardController extends HttpServlet {
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html; charset=utf-8");
-			System.out.println("doProcess 호출");
 			String cmd = request.getParameter("cmd");
 			
 			
@@ -93,7 +95,7 @@ public class BoardController extends HttpServlet {
 					PrintWriter out = response.getWriter();
 					out.println("<script>");
 					out.println("alert('글쓰기가 완료되었습니다.')");
-					out.println("location.href ='/lectureEvaluation/board/boardList.jsp'");
+					out.println("location.href ='/lectureEvaluation/boardServlet?cmd=boardList'");
 					out.println("</script>");
 					
 					
@@ -105,6 +107,69 @@ public class BoardController extends HttpServlet {
 						request.getRequestDispatcher("board/boardForm.jsp");
 				
 				dis.forward(request, response);
+			}else if(cmd.equals("detail")) {
+				int bno = Integer.parseInt(request.getParameter("bno"));
+				
+				
+				
+				System.out.println("bno :" +bno);
+				Board detail = new Board();
+				detail = boardService.글상세보기(bno);
+				if(detail == null) {
+					Script.back(response, "글 상세보기 실패");
+				}else {
+				request.setAttribute("detail", detail);
+				RequestDispatcher dis =
+						request.getRequestDispatcher("board/boardDetaill.jsp");
+				
+				dis.forward(request, response);
+				}
+			}else if(cmd.equals("image")) {
+				String uploadPath = "C:\\summernote\\image";
+				
+				String fileName = "";
+				
+				try {
+				
+				}catch(Exception e){
+					e.printStackTrace();
+					
+				}
+				
+			}else if(cmd.equals("delete")) {
+				int bno = Integer.parseInt(request.getParameter("bno"));
+				
+				Board board = boardService.글상세보기(bno);
+				String userId = board.getUserId();
+				
+				System.out.println("userId : " + userId);
+				
+				HttpSession session = request.getSession();
+				String sessionValue = null;
+				if(session.getAttribute("principal") != null) {
+					sessionValue = (String) session.getAttribute("principal");
+					
+				}
+				System.out.println("session :" + sessionValue);
+				if( sessionValue == null){
+	
+					Script.back(response, "권한이 없습니다.");
+				}else if(!userId.equals(sessionValue)) {
+					
+					Script.back(response, "글 작성자만 삭제할 수있습니다.");
+				}else{
+					int result = boardService.글삭제하기(bno);
+					if(result ==1) {
+						PrintWriter out = response.getWriter();
+						out.println("<script>");
+						out.println("alert('글 삭제가 완료되었습니다.')");
+						out.println("location.href ='/lectureEvaluation/boardServlet?cmd=boardList'");
+						out.println("</script>");
+						
+					}else {
+						Script.back(response, "글 삭제 실패!!");
+					}
+				}
 			}
 			
 	}

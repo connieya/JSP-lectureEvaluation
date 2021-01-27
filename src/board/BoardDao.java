@@ -12,11 +12,12 @@ import utill.DatabaseUtill;
 
 public class BoardDao {
 	
+	Connection conn;
+	PreparedStatement pstmt;
+	ResultSet rs;
 
 	public int write(String userId , String title, String content) {
-		Connection conn;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		
 		
 		String sql = "insert into board(userId, title, content, readCount, createDate) values(?,?,?,0, now() )";
 		
@@ -40,9 +41,7 @@ public class BoardDao {
 	
 	public List<Board> list() {
 		System.out.println("boardlist !!");
-		Connection conn;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		
 		
 		String sql = "select * from board order by bno desc";
 		
@@ -51,8 +50,8 @@ public class BoardDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			Board board = new Board();
 			while(rs.next()) {
+				Board board = new Board();
 				board.setBno(rs.getInt(1));
 				board.setUserId(rs.getString(2));
 				board.setTitle(rs.getString(3));
@@ -60,8 +59,6 @@ public class BoardDao {
 				board.setReadCount(rs.getInt(5));
 				board.setCreateDate(rs.getTimestamp(6));
 				
-				System.out.println("rs.getInt : "+ rs.getInt(1));
-				System.out.println("rs : " + rs);
 				boardlist.add(board);	
 			}
 			
@@ -73,7 +70,90 @@ public class BoardDao {
 			DB.close(conn, pstmt, rs);
 		}
 		
-		System.out.println( "boardlist: " +boardlist);
 		return boardlist;
+	}
+	
+	public Board detail(int bno) {
+		
+		
+		String sql = "select * from board where bno =?";
+		Connection conn;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		conn = DatabaseUtill.dbPool();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			rs = pstmt.executeQuery();
+			Board board = new Board();
+			if(rs.next()) {
+				board.setBno(rs.getInt("bno"));
+				board.setUserId(rs.getString("userId"));
+				board.setTitle(rs.getString("title"));
+				board.setContent(rs.getString("content"));
+				board.setReadCount(rs.getInt("readCount"));
+				board.setCreateDate(rs.getTimestamp("createDate"));
+				
+				return board;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DB.close(conn, pstmt, rs);
+		}
+		
+		return null;
+		
+	}
+	
+	public int delete(int bno) {
+		
+		Connection conn;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "delete from board where bno = ?";
+		
+		conn = DatabaseUtill.dbPool();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+		
+			
+			return pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DB.close(conn, pstmt, rs);
+		}
+		
+		return -1;
+	
+		
+	}
+	// 조회수 증가 함수 
+	public int readCount(int bno) {
+		
+		String sql = "update board set readCount = readCount+1 where bno =?";
+		
+		conn = DatabaseUtill.dbPool();
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			
+			
+				return pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DB.close(conn, pstmt);
+		}
+		return -1;
 	}
 }

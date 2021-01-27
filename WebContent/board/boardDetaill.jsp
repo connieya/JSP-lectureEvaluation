@@ -1,0 +1,59 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<%@ include file="../components/header.jsp" %>
+<h1 style="text-align: center">글상세보기</h1>
+<div class="container">
+		<div class="row">
+			<table class="table table-striped" style="text-align :center; border: 1px solid #dddddd">
+				<thead>
+					<tr>
+						<th colspan="4" style="background-color: #eeeeee; text-align: center;">게시판 글보기</th>
+					</tr>
+				</thead>
+				<tbody>
+				 
+				 <!-- DB에서 게시글 번호를 기준으로 가져온것임 --> 
+					<tr>
+						<td style="width:20%">제목</td>
+						<td>${detail.title }</td>
+						<td >작성일</td>
+						<td>${detail.createDate }</td>
+					</tr>
+					
+					<tr>
+						<td >작성자</td>
+						<td>${detail.userId }</td>
+						<td >조회수</td>
+						<td>${detail.readCount }</td>
+					</tr>
+					
+					<tr>
+						
+					</tr>
+					<tr>
+						<td >내용</td>
+						<td colspan="2" style="height: 200px; text-align: left;">${detail.content }</td>
+					</tr>
+					
+				
+				</tbody>
+			</table>
+			<a  style="margin: 0px 5px" href="/lectureEvaluation/boardServlet?cmd=boardList" class="btn btn-primary">목록</a>
+	<a  style="margin: 0px 5px" onclick="return confirm('정말 삭제하시겠습니까?')" href="/lectureEvaluation/boardServlet?cmd=delete&bno=${detail.bno }" class="btn btn-danger">삭제</a>
+			<%-- <button class="btn btn-danger" onclick="boardDelete(${detail.bno})">삭제</button> --%>
+	<!-- 		왜 ajax로 삭제를 하려고 할까? 그냥 바로 서블릿으로 요청하면 안되나??
+			왜 그럴까? 비동기로 처리하고 싶어서? 단지 그 이유때문에? --> 
+	</div>
+	</div>
+	<script src="/lectureEvaluation/js/boardDetail.js">
+	</script>
+</body>
+</html>

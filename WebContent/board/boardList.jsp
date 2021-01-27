@@ -12,7 +12,6 @@
 <%@ include file="../components/header.jsp" %>
 <div class="container">
  <h1>자유게시판</h1>
- ${sessionScope.principal}
 	<div class="row">
            
            <c:choose>
@@ -29,18 +28,19 @@
     <thead>
       <tr>
         <th style="background-color: #eeeeee;">글번호</th>
-        <th style="background-color: #eeeeee;">작성자</th>
         <th style="background-color: #eeeeee;">제목</th>
+        <th style="background-color: #eeeeee;">작성자</th>
         <th style="background-color: #eeeeee;">조회수</th>
         <th style="background-color: #eeeeee;">작성일</th>
       </tr>
     </thead>
     <tbody>
    <c:forEach var="board" items="${boards}">
+   
       <tr>
         <td>${board.bno}</td>
+        <td><a href="/lectureEvaluation/boardServlet?cmd=detail&bno=${board.bno}">${board.title }</a></td>
         <td>${board.userId }</td>
-        <td>${board.title }</td>
         <td>${board.readCount }</td>
         <td>${board.createDate}</td>
       </tr>
@@ -58,5 +58,9 @@
 		location.href = "/lectureEvaluation/userServlet?cmd=loginForm"
 	}
 </script>
+
+<%@ include file="../components/footer.jsp" %>
 </body>
+
+
 </html>
