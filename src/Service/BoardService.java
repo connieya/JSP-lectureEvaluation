@@ -50,6 +50,21 @@ public class BoardService {
 		return dao.delete(bno);
 		
 	}
+	// json 데이터로 보낼 때 
+	public int 글삭제하기2(int bno, String sessionValue, String userId) {
+		System.out.println("글삭제하기2");
+		if(sessionValue == null) {
+			return -1;
+		}else if(!sessionValue.equals(userId)) {
+			return 0;
+		}else {
+			
+			return dao.delete(bno);
+		}
+		
+		
+	}
+	
 	
 	public void 글수정하기() {
 		

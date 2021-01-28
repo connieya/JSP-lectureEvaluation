@@ -328,9 +328,7 @@
 			
 		</div> <!-- div modal dialog -->
 	</div> <!-- div modal fade -->
-	<footer class="bg-dark mt-4 p-5 text-center" style="color:#ffffff;">
-		CopyRight &copy; 2020 박건희 All Rights Reserved.
-	</footer>
+	<%@ include file="../components/footer.jsp" %>
 	
 	
 </body>

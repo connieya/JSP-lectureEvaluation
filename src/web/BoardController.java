@@ -15,9 +15,12 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.Session;
 
+import com.google.gson.Gson;
+
 import Service.BoardService;
 import Service.UserService;
 import board.Board;
+import board.CommonRespDto;
 import user.User;
 import utill.SHA256;
 import utill.Script;
@@ -156,6 +159,7 @@ public class BoardController extends HttpServlet {
 					Script.back(response, "권한이 없습니다.");
 				}else if(!userId.equals(sessionValue)) {
 					
+					
 					Script.back(response, "글 작성자만 삭제할 수있습니다.");
 				}else{
 					int result = boardService.글삭제하기(bno);
@@ -170,6 +174,33 @@ public class BoardController extends HttpServlet {
 						Script.back(response, "글 삭제 실패!!");
 					}
 				}
+			}else if(cmd.equals("delete1")) {
+				int bno = Integer.parseInt(request.getParameter("bno"));
+				
+				Board board = boardService.글상세보기(bno);
+				String userId = board.getUserId();
+				
+				HttpSession session = request.getSession();
+				String sessionValue = null;
+				if(session.getAttribute("principal") != null) {
+					sessionValue = (String) session.getAttribute("principal");	
+				}
+				
+				int result = boardService.글삭제하기2(bno, sessionValue , userId);
+				
+				//응답할 json 데이터 생성
+				CommonRespDto<String> RespDto = new CommonRespDto<>();
+				RespDto.setStatusCode(result);
+				RespDto.setData("성공");
+				
+				Gson gson = new Gson();
+				String resultData = gson.toJson(RespDto);
+				System.out.println("resultData" +resultData);
+				PrintWriter out = response.getWriter();
+				out.print(resultData);
+				out.flush();
+		
+				
 			}
 			
 	}

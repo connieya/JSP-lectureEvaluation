@@ -14,16 +14,19 @@
  <h1>자유게시판</h1>
 	<div class="row">
            
+           	 <div class="form-inline d-flex justify-content-end" style="width:100%;" >
+          
            <c:choose>
            	<c:when test="${sessionScope.principal != null }">
-           	  <a class="btn btn-info" href="/lectureEvaluation/boardServlet?cmd=boardForm">글쓰기</a>
+           	  <a class="btn btn-info " href="/lectureEvaluation/boardServlet?cmd=boardForm">글쓰기</a>
            	</c:when>
            	<c:otherwise>
            	  <a class="btn btn-info" onclick="NotRegister()">글쓰기</a>
            	</c:otherwise>
            </c:choose>
           
-  <table class="table table-bordered" style="text-align: center; border: 1px solid #ddddddd">
+           	</div>
+  <table class="table table-bordered" style="text-align: center; border : 1px solid #ddddddd ; margin-top : 10px; ">
   
     <thead>
       <tr>
