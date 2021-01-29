@@ -21,6 +21,7 @@ import Service.BoardService;
 import Service.UserService;
 import board.Board;
 import board.CommonRespDto;
+import board.UpdateReqDto;
 import user.User;
 import utill.SHA256;
 import utill.Script;
@@ -200,6 +201,55 @@ public class BoardController extends HttpServlet {
 				out.print(resultData);
 				out.flush();
 		
+				
+			}else if(cmd.equals("update")) {
+				int bno = Integer.parseInt(request.getParameter("bno"));
+				
+				
+				String title = request.getParameter("title");
+				String content = request.getParameter("content");
+				UpdateReqDto dto = new UpdateReqDto();
+				dto.setBno(bno);
+				dto.setTitle(title);
+				dto.setContent(content);
+				System.out.println("title :" +title);
+				System.out.println("Dto : "+ dto);
+				int result = boardService.글수정하기(dto);
+				System.out.println("result : " +result);
+				if(result == 1) {
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('글 수정이 완료되었습니다.')");
+				out.print("location.href='/lectureEvaluation/boardServlet?cmd=detail&bno="+bno+"'");
+				out.println("</script>");
+					
+				}else {
+					Script.back(response, "글수정 실패");
+				}
+			}else if(cmd.equals("updateForm")) {
+				int bno = Integer.parseInt(request.getParameter("bno"));
+				Board board = boardService.글상세보기(bno);
+				String userId = board.getUserId();
+				HttpSession session = request.getSession();
+				String sessionValue = null;
+				
+				request.setAttribute("board", board);
+				if(session.getAttribute("principal") != null) {
+					sessionValue = (String) session.getAttribute("principal");	
+				}
+				
+				if(sessionValue == null) {
+					Script.back(response, "로그인이 필요합니다.");
+				}else if(!sessionValue.equals(userId)) {
+					Script.back(response, "권한이 없습니다.");
+				}else {
+					
+					RequestDispatcher dis =
+							request.getRequestDispatcher("board/boardUpdate.jsp");
+					
+					dis.forward(request, response);
+				}
+				
 				
 			}
 			

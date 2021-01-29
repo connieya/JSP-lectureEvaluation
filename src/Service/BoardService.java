@@ -4,6 +4,7 @@ import java.util.List;
 
 import board.Board;
 import board.BoardDao;
+import board.UpdateReqDto;
 
 public class BoardService {
 	private BoardDao dao;
@@ -66,8 +67,9 @@ public class BoardService {
 	}
 	
 	
-	public void 글수정하기() {
-		
+	public int 글수정하기(UpdateReqDto dto) {
+		System.out.println("글 수정하기");
+		return dao.update(dto);
 	}
 
 

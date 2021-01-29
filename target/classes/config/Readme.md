@@ -28,7 +28,12 @@
 	</filter-mapping>
 ```
 
-필터사용
+인증이 필요한 곳 마다 코드로 세션값을 확인하게 되면 
+View에 해당하는 jsp 파일이 너저분해진다. <br/>
+또한 인증이 필요한 곳에 url로 직접 요청을 할 수 있기 때문에  <br/>
+<br/> 필터에 .jsp로 모든 접근을 막아버렸다. 
+
+`필터사용`
 
 ```java
 public class ForbiddenUrlConfig implements Filter{

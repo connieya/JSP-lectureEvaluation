@@ -40,15 +40,17 @@
 					</tr>
 					<tr>
 						<td >내용</td>
-						<td colspan="2" style="height: 200px; text-align: left;">${detail.content }</td>
+						<td colspan="3" style="height: 200px; text-align: left;">${detail.content }</td>
 					</tr>
 					
 				
 				</tbody>
 			</table>
 			<a  style="margin: 0px 5px" href="/lectureEvaluation/boardServlet?cmd=boardList" class="btn btn-primary">목록</a>
+			<a  style="margin: 0px 5px" href="/lectureEvaluation/boardServlet?cmd=updateForm&bno=${detail.bno }" class="btn btn-warning">수정</a>
+			
 	<%-- <a  style="margin: 0px 5px" onclick="return confirm('정말 삭제하시겠습니까?')" href="/lectureEvaluation/boardServlet?cmd=delete&bno=${detail.bno }" class="btn btn-danger">삭제</a> --%>
-			 <button class="btn btn-danger" onclick="boardDelete(${detail.bno})">삭제</button> 
+			 <button style="margin: 0px 5px" class="btn btn-danger" onclick="boardDelete(${detail.bno})">삭제</button> 
 	<!-- 		왜 ajax로 삭제를 하려고 할까? 그냥 바로 서블릿으로 요청하면 안되나??
 			왜 그럴까? 비동기로 처리하고 싶어서? 단지 그 이유때문에? --> 
 	</div>

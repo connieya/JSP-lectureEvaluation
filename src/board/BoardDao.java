@@ -25,8 +25,8 @@ public class BoardDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
-			pstmt.setString(2, title);
-			pstmt.setString(3, content);
+			pstmt.setString(2, title.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br/>"));
+			pstmt.setString(3, content.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\r\n", "<br/>"));
 				System.out.println("글쓰기 완료?");
 			return pstmt.executeUpdate();
 			
@@ -154,6 +154,28 @@ public class BoardDao {
 		}finally {
 			DB.close(conn, pstmt);
 		}
+		return -1;
+	}
+	
+	public int update(UpdateReqDto dto) {
+		String sql = "update board set title = ? , content =? where bno = ?";
+		
+		conn = DatabaseUtill.dbPool();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getTitle());
+			pstmt.setString(2, dto.getContent());
+			pstmt.setInt(3, dto.getBno());
+				System.out.println("글수정 완료?");
+				
+			return pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DB.close(conn, pstmt);
+		}
+		
 		return -1;
 	}
 }

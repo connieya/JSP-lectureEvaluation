@@ -1,0 +1,11 @@
+@charset "UTF-8";
+	body {
+		height : 100%;
+		background-color: blue;
+	}
+	
+	*{
+		box-sizing: border-box;
+		-webkit-box-sizing : boder-box;
+	}
+	
