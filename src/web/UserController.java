@@ -60,6 +60,7 @@ public class UserController extends HttpServlet {
 			System.out.println("doProcess 호출");
 			String cmd = request.getParameter("cmd");
 			// 커맨드 요청
+			HttpSession session = request.getSession();
 			
 			System.out.println("cmd 값은 : " +cmd);
 			UserService userService = new UserService();
@@ -104,7 +105,7 @@ public class UserController extends HttpServlet {
 				
 				int result = userService.로그인(user);
 				if(result ==1) {
-					HttpSession session =request.getSession();
+					
 					session.setAttribute("principal", user.getUserId());
 					System.out.println(user);
 					PrintWriter script = response.getWriter();
@@ -153,6 +154,15 @@ public class UserController extends HttpServlet {
 				
 				dis.forward(request, response);
 			}else if(cmd.equals("userUpdate")) {
+				String userId = null;
+				if( session.getAttribute("principal") != null) {
+					userId = (String) session.getAttribute("principal");
+				}
+				User user = new User();
+				
+				user = userService.유저정보가져오기(userId);
+				
+				request.setAttribute("users", user);
 				RequestDispatcher dis =
 						request.getRequestDispatcher("user/userUpdate.jsp");
 				
@@ -167,13 +177,39 @@ public class UserController extends HttpServlet {
 					PrintWriter script = response.getWriter();
 					script.println("<script>");
 					script.println("alert('회원 수정완료')");
-					script.println("location.href='../index.jsp'");
+					script.println("location.href='/lectureEvaluation/index.jsp'");
 					script.println("</script>");
 				}else{
 					Script.back(response, "회원수정 실패");
 				}
 				
 			
+			}else if(cmd.equals("userDelete")) {
+				String userId = request.getParameter("userId");
+				
+				int result = userService.회원탈퇴(userId);
+
+				if(result ==1 ){
+					PrintWriter script = response.getWriter();
+					script.println("<script>");
+					script.println("alert('회원탈퇴가 완료되었습니다. ')");
+					script.println("location.href='/lectureEvaluation/userServlet?cmd=logout'");
+					script.println("</script>");
+				}else{
+					Script.back(response, "오류가 발생했습ㄴ디ㅏ.");
+				}
+			}else if(cmd.equals("logout")) {
+				RequestDispatcher dis =
+						request.getRequestDispatcher("user/logout.jsp");
+				
+				dis.forward(request, response);
+				
+			}else if(cmd.equals("jusoPop")) {
+				RequestDispatcher dis =
+						request.getRequestDispatcher("user/jusoPopup.jsp");
+				
+				dis.forward(request, response);
+				
 			}
 			
 		}

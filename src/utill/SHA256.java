@@ -22,7 +22,7 @@ public class SHA256 {
 				sb.append(Integer.toString(data & 0xff,16));
 			}
 			result = sb.toString();
-			System.out.println(result);
+			System.out.println("result :" + result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

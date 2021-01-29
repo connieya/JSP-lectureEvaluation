@@ -44,14 +44,14 @@ $('#summernote').summernote({
   placeholder: '내용을 입력하세요',
   tabsize: 2,
   height: 400,
-  callbacks : {
+ /*  callbacks : {
 	  onImageUpload : function(files ,editor, welEditable){
 		  sendFile(files[0],this);
 	  }
-  }
+  } */
 });
 
-function sendFile(file,editor){
+/* function sendFile(file,editor){
 	//파일 전송을 위한 폼 생성
 	data = new FormData();
 	data.append("uploadFile", file);
@@ -68,7 +68,7 @@ function sendFile(file,editor){
 		}
 	});
 }
-
+ */
 </script>
 
 

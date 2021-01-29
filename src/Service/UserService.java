@@ -7,10 +7,17 @@ public class UserService {
 	
 	private UserDAO userDao;
 	
+	
+	
 	public UserService() {
 		userDao = new UserDAO();
 		// 다른 로직에서 계속 new 할 필요 없이 여기서 한번 선언
+		
+	
+		
 	}
+	
+	
 	
 	public int 회원가입(User user) {
 		int result = userDao.join(user);
@@ -44,5 +51,15 @@ public class UserService {
 		
 		return userDao.회원수정(userId, userName, userPassword, userAddr);
 		
+	}
+	
+	public int 회원탈퇴(String userId) {
+		
+		return userDao.회원탈퇴(userId);
+	}
+	
+	public User 유저정보가져오기(String userId) {
+		
+		return userDao.getUser(userId);
 	}
 }

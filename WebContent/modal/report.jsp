@@ -18,15 +18,15 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form action="/lectureEvaluation/evaluation/reportAction.jsp" method="post">
+					<form action="/lectureEvaluation/lectureServlet?cmd=reportAction" method="post">
 	
 				<div class="form-group">
 					<label for="">신고 제목</label>
-					<input type="text" name="reportTitle" class="form-control" maxlength="40" />
+					<input type="text" name="reportTitle" class="form-control" maxlength="40" required/>
 				</div>
 				<div class="form-group">
 					<label for="">신고 내용</label>
-					<textarea  name="reportContent" class="form-control" maxlength="2048" ></textarea>
+					<textarea  name="reportContent" class="form-control" maxlength="2048" required></textarea>
 				</div>		
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>

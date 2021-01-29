@@ -12,13 +12,38 @@
 <head>
 <meta charset="UTF-8">
 <title>메인 페이지</title>
-<link rel="stylesheet" href="css/style.css" />
 <style>
-	input.form-control{
+	body {
+		height : 100%;
+		margin : 0;
+		padding: 0;
+	}
+	html{
+		height: 100%;
+		margin: 0;
+		padding: 0;
+	}
+	
+	*{
+		box-sizing: border-box;
+		-webkit-box-sizing : border-box;
+		-moz-box-sizing: border-box;
+	}
+	.wrap{
+		min-height: 100%;
+		position : relative;
+		padding-bottom: 110px;
+		margin-top: 0px;
+		
+		
+	}
+	
+		input.form-control{
 		width: 40%;
 		margin: 0 auto;
-	}
+	}	
 </style>
+
 </head>
 <body>
 <%@ include file="components/header.jsp" %>
@@ -56,6 +81,8 @@
 		}
 	%>
 	
+	
+	<div class="wrap">
 		<section class="container">
 	<form method="get" action="./index.jsp" class="form-inline mt-3">
 		<select name="lectureDivide" class="form-control mx-1 mt-2">
@@ -73,22 +100,18 @@
 		</form>
 		<% if(userId == null){
 		
-			
-			%>
+		%>
 		<a href="/lectureEvaluation/user/login.jsp" class="btn btn-primary mx-1 mt-2" data-toggle="modal" onclick="alert('로그인 후 사용 가능합니다.')" >등록하기</a>
 		<a href="#" class="btn btn-danger mx-1 mt-2" data-toggle="modal" onclick="alert('로그인 후 사용 가능합니다.')">신고하기</a>	
 		<%
 		}else{
 			
-		
 		%>
 		<a href="#registerModal" class="btn btn-primary mx-1 mt-2" data-toggle="modal" >등록하기</a>
 		<a href="#reportModal" class="btn btn-danger mx-1 mt-2" data-toggle="modal">신고하기</a>
 		<%
 		}
 		%>
-	
-	
 		<%
 		LectureDAO lecuture = new LectureDAO();
 		
@@ -141,9 +164,7 @@
 	<ul class="pagination justify-content-center mt-3">
 		<li class="page-item">
 		<%
-			if(pageNumber <= 0){
-				
-			
+			if(pageNumber <= 0){	
 		%>
 			<a  class="page-link disabled" onclick="disabled" style="cursor: default;"  >이전</a>
 		<%
@@ -154,13 +175,10 @@
 		<%
 			}
 		%>
-		
 		</li>
 		<li>
-			<%
-			if(e.size() < 6){
-				
-			
+		<%
+			if(e.size() < 6){			
 		%>
 			<a  class="page-link disabled">다음</a>
 		<%
@@ -171,21 +189,15 @@
 		<%
 			}
 		%>
-		
 		</li>
 	</ul>
-	 
+<%@ include file="/components/footer.jsp" %>
+	 </div>  <!-- div. wrap -->
 	<!--강의평가 등록 모달  -->
 	<%@ include file="/modal/lecture.jsp" %>
 	
 	<!-- 신고하기 모달 -->
 	<%@ include file="/modal/report.jsp" %>
 	
-	
-
-	
-	
-	
 </body>
-<%@ include file="/components/footer.jsp" %>
 </html>

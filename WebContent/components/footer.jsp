@@ -9,9 +9,12 @@
 	footer {
 		position: absolute;
 		bottom : 0;
+		left:0;
+		right:0;
 		width : 100%;
 		margin-bottom : 8px;
 		font-style: italic;
+		height:40px;
 	}
 </style>
 </head>

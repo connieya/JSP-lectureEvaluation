@@ -85,7 +85,7 @@
 		}else{
 			$.ajax({
 				type : "post",
-				url : "/lectureEvaluation/user?cmd=idCheck",
+				url : "/lectureEvaluation/userServlet?cmd=idCheck",
 				data : userId,
 				contentType :"/text/plain; charset=utf-8",
 				dataType : "text"  // 응답 받을 데이터의 타입을 적으면 자바스크립트 오브젝트로 파싱해줌 
@@ -109,7 +109,7 @@
 	
 function goPopup(){
 	
-	var pop = window.open("/lectureEvaluation/user/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+	var pop = window.open("/lectureEvaluation/userServlet?cmd=jusoPop","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
 
 }
 

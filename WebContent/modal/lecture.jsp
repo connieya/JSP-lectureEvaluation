@@ -19,7 +19,7 @@
 					</button>
 				</div><!--  modal header -->
 				<div class="modal-body">
-					<form action="/lectureEvaluation/evaluation/evaluationRegisterAction.jsp" method="post">
+					<form action="/lectureEvaluation/lectureServlet?cmd=register"  method="post">
 						<div class="form-row">
 							<div class="form-group col">
 								<label >강의명</label>

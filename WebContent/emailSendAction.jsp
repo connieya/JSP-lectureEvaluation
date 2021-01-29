@@ -66,6 +66,10 @@
 		String host = "http://localhost:8090/lectureEvaluation/";
 		String from = "gunny6026@gmail.com";
 		String to = dao.getUserEmail(userId);
+		PrintWriter out1 = response.getWriter();
+		out1.println("<script>");
+		out1.println("console.log('to : '"+to+")");
+		out1.println("</script>");
 		String code = SHA256.getSHA256(to);
 		String subject = "강의 평가를 위한 이메일 인증 메일입니다.";
 		String content ="다음 링크에 접속하여 이메일 인증을 진행하세요" +	
@@ -97,12 +101,13 @@
 			Transport.send(msg);
 			
 		}catch(Exception  e){
-				PrintWriter script = response.getWriter();
+				 PrintWriter script = response.getWriter();
 				script.println("<script>");
-				script.println("alert('오류가 발생했습니다.')");
-				script.println("history.back();");
+			/* 	script.println("alert('오류가 발생했습니다.')");
+				script.println("history.back();"); */
+				script.println("console.log("+e+")");
 				script.println("</script>");
-				script.close();
+				script.close(); 
 				return;
 		}
 	

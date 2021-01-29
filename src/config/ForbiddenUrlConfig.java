@@ -22,9 +22,12 @@ public class ForbiddenUrlConfig implements Filter{
 			
 			System.out.println("ForbiddenUrlConfig 접근");
 			System.out.println(request.getRequestURL());
+			System.out.println(request.getRequestURL().toString());
 			System.out.println(request.getRequestURI());
 			
-			if(request.getRequestURI().equals("/lectureEvaluation/") || request.getRequestURI().equals("/lectureEvaluation/index.jsp")) {
+			if(request.getRequestURI().equals("/lectureEvaluation/") || request.getRequestURI().equals("/lectureEvaluation/index.jsp")
+					
+					) {
 				chain.doFilter(request, response);
 			}else {
 				PrintWriter out = response.getWriter();
