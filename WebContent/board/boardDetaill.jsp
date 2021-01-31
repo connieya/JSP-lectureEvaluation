@@ -85,10 +85,10 @@ ul{
 	<div class="comment_area" style="border-top: 2px solid #e5e5e5">
 		<div class="comment_box">
 			<div class="comment_nick_box">
-				<div class="comment_nick_info">장정우니당</div>
+				<div class="comment_nick_info" id="comment_username">장정우니당</div>
 			</div>
 			<div class="comment_text_box">
-				<p class="comment_text_box">취뽀하자 ㅎㅎ</p>
+				<p class="comment_text_box" id="comment_content">취뽀하자 ㅎㅎ </p>
 			</div>
 			<div class="comment_info_box">
 				<span class="comment_info_date">2021.01.30. 19:05</span>
@@ -147,7 +147,9 @@ ul{
 		}).done(function(result){
 			console.log(result)
 			if(result.statusCode ==1){
-				alert("댓글쓰기 완료")
+				$("#comment_content").prepend(data.content)
+					$("#comment_username").prepend(data.userName)
+				console.log("댓글 쓰기 성공")
 			}else{
 				alert("댓글 쓰기 실패")
 			}
