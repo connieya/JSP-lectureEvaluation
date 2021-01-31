@@ -102,13 +102,13 @@
 		
 		%>
 		<a href="/lectureEvaluation/user/login.jsp" class="btn btn-primary mx-1 mt-2" data-toggle="modal" onclick="alert('로그인 후 사용 가능합니다.')" >등록하기</a>
-		<a href="#" class="btn btn-danger mx-1 mt-2" data-toggle="modal" onclick="alert('로그인 후 사용 가능합니다.')">신고하기</a>	
+	
 		<%
 		}else{
 			
 		%>
 		<a href="#registerModal" class="btn btn-primary mx-1 mt-2" data-toggle="modal" >등록하기</a>
-		<a href="#reportModal" class="btn btn-danger mx-1 mt-2" data-toggle="modal">신고하기</a>
+		
 		<%
 		}
 		%>

@@ -6,6 +6,30 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	.comment_inbox_text{
+	
+		min-height: 17px;
+		display: block;
+		border : 0;
+		font-size: 13px;
+		box-sizing : border-box;
+	}
+	.commentBox .comment_list .comment_area{
+		position: relative;
+		padding: 12px 23px 10px 0;
+	}
+	.comment_nick_box .comment_nick_info {
+    display: inline-block;
+    position: relative;
+    font-size: 13px;
+    vertical-align: top;
+}
+
+ul{
+	list-style: none;
+}
+</style>
 </head>
 <body>
 <%@ include file="../components/header.jsp" %>
@@ -54,7 +78,76 @@
 	<!-- 		왜 ajax로 삭제를 하려고 할까? 그냥 바로 서블릿으로 요청하면 안되나??
 			왜 그럴까? 비동기로 처리하고 싶어서? 단지 그 이유때문에? --> 
 	</div>
+	<div class="commentBox" style="margin-top: 5px;">
+	
+	<ul class="comment_list">
+	<li class="commentItem">
+	<div class="comment_area" style="border-top: 2px solid #e5e5e5">
+		<div class="comment_box">
+			<div class="comment_nick_box">
+				<div class="comment_nick_info">장정우니당</div>
+			</div>
+			<div class="comment_text_box">
+				<p class="comment_text_box">취뽀하자 ㅎㅎ</p>
+			</div>
+			<div class="comment_info_box">
+				<span class="comment_info_date">2021.01.30. 19:05</span>
+				<a href="" class="comment_info_button">답글쓰기</a>
+			</div>
+			<div class="comment_tool"></div>
+		</div> <!-- comment_box -->
+	</div>  <!-- comment_area -->
+	</li>
+	</ul>
+	<c:choose>
+	<c:when test="${userObject.userId == null }">
+		<div class="notComment" style="width: 100%; border: 2px solid #dcdcdc">
+		<p>로그인 후 댓글을 남길 수 있습니다.</p>
+			
+		</div>
+	</c:when>
+	<c:otherwise>
+	<div class="commentWriter" style="width: 10	0%; border: 2px solid #dcdcdc; border-radius: 6px; box-sizing: border-box; margin-top:10px;">
+	
+	<div class="commentInbox" style="position: relative; margin: 10px 5px; height:80%">
+	<em class="comment_inbox_name" style="display:block; font-weight: 700; margin: 10px 0; font-size: 17px;">${userObject.userName }</em>
+	<textarea style=" max-height: 500px; width:100%;"class="comment_inbox_text" rows="1" placeholder="댓글을 남겨보세요"  id="reply"></textarea>
 	</div>
+	
+	
+	<div class="comment_attach" style="display: block; position: relative; clear: both;">
+	<div class="register_box">
+	
+	<input type="hidden" value="${userObject.userId }"  id="userId" />
+	<button style="float: right"  class="btn btn-register" onclick="commentRegister(${detail.bno},${userObject.userId })">등록</button>
+	</div>
+	</div>
+	
+	</div>  <!-- commetWriter  -->
+	</c:otherwise>
+	</c:choose>
+	</div><!--  commentBox  -->
+	
+	</div>
+	<script>
+
+	function commentRegister(bno ,userId) {
+		alert ("안녕!!!")
+		cosole.log("좀되라 시발 ㅋㅋ")
+		var content = document.getElementById("reply");
+		var data = content.value;
+		$.ajax({
+			type: "post",
+			url : "/lectureEvaluation/replyServlet?cmd=register$bno="+bno+"$userId="+userId+"",
+			dataType : "json",
+			data : data
+			
+		}).done(function(result){
+			
+		})
+		
+	}
+	</script>
 	<script src="/lectureEvaluation/js/boardDetail.js">
 	</script>
 </body>

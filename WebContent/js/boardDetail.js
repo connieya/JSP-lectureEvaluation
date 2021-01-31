@@ -1,6 +1,10 @@
 /**
  * 
  */
+/**
+ * 
+ */
+
 
 function boardDelete(bno){
 	$.ajax({
@@ -21,6 +25,10 @@ function boardDelete(bno){
 	
 	
 }
+
+
+
+
 
 
 

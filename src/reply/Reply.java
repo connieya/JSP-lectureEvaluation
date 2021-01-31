@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class Reply {
-	private int id;
-	private int userId;
-	private int boardId;
+	private int rno;
+	private String userId;
+	private int bno;
 	private String content;
 	private Timestamp createDate;
 }

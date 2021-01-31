@@ -70,7 +70,7 @@
 		<input class="btn btn-primary" type="submit" value="회원수정" />
 <%-- 		<a href="/lectureEvaluation/user/userDeleteAction.jsp?userId=<%=userId %>" class="btn btn-danger" onclick="return confirm('정말 탈퇴 하시겠습니까?')">회원탈퇴</a> --%>
 		<a href="/lectureEvaluation/userServlet?cmd=userDelete&userId=<%=pr %>" class="btn btn-danger" onclick="return confirm('정말 탈퇴 하시겠습니까?')">회원탈퇴</a>
-		<a href="/lectureEvaluation/lectureServlet?cmd=emailSend" class="btn btn-warning" style="color:white;" >이메일 인증</a>
+		
 	</form>
 	</div>
 	</div>

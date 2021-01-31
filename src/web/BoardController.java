@@ -73,11 +73,14 @@ public class BoardController extends HttpServlet {
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html; charset=utf-8");
 			String cmd = request.getParameter("cmd");
-			
+			HttpSession session = request.getSession();
 			
 			System.out.println("cmd 값은 : " +cmd);
 			
 			BoardService boardService = new BoardService();
+			UserService userService = new UserService();
+			
+			
 			
 			if(cmd.equals("boardList")) {
 				//response.sendRedirect("/lectureEvaluation/board/boardForm.jsp");
@@ -114,7 +117,14 @@ public class BoardController extends HttpServlet {
 			}else if(cmd.equals("detail")) {
 				int bno = Integer.parseInt(request.getParameter("bno"));
 				
+				String userId = null;
+				if(session.getAttribute("principal") != null) {
+					userId = (String) session.getAttribute("principal");
+				}
 				
+				User user = new User();
+				user = userService.유저정보가져오기(userId);
+				request.setAttribute("userObject", user);
 				
 				System.out.println("bno :" +bno);
 				Board detail = new Board();
@@ -148,7 +158,7 @@ public class BoardController extends HttpServlet {
 				
 				System.out.println("userId : " + userId);
 				
-				HttpSession session = request.getSession();
+				 session = request.getSession();
 				String sessionValue = null;
 				if(session.getAttribute("principal") != null) {
 					sessionValue = (String) session.getAttribute("principal");
@@ -181,7 +191,7 @@ public class BoardController extends HttpServlet {
 				Board board = boardService.글상세보기(bno);
 				String userId = board.getUserId();
 				
-				HttpSession session = request.getSession();
+				 session = request.getSession();
 				String sessionValue = null;
 				if(session.getAttribute("principal") != null) {
 					sessionValue = (String) session.getAttribute("principal");	
@@ -230,7 +240,7 @@ public class BoardController extends HttpServlet {
 				int bno = Integer.parseInt(request.getParameter("bno"));
 				Board board = boardService.글상세보기(bno);
 				String userId = board.getUserId();
-				HttpSession session = request.getSession();
+				 session = request.getSession();
 				String sessionValue = null;
 				
 				request.setAttribute("board", board);
