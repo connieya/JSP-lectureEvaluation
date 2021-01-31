@@ -117,6 +117,11 @@ public class BoardController extends HttpServlet {
 			}else if(cmd.equals("detail")) {
 				int bno = Integer.parseInt(request.getParameter("bno"));
 				
+				/*
+				 * 사실 아래와 같이 세션 값을 체크 할 필요가 없다. 그냥 boardDetail.jsp 에서 sessionScope.principal 값을
+				 * 바로 체크하면 되는데, 내가 세션 값을 설정할 때 user 객체로 지정하지않고 userId로 지정을 해서 아래와 같이 user 객체를
+				 * 넘겨주었다.
+				 */
 				String userId = null;
 				if(session.getAttribute("principal") != null) {
 					userId = (String) session.getAttribute("principal");
@@ -205,6 +210,8 @@ public class BoardController extends HttpServlet {
 				RespDto.setData("성공");
 				
 				Gson gson = new Gson();
+				// 응답해줄 ajax에서 dataType : "json"으로 설정했기 때문에 
+				//결과값을 json으로 변환해줘야함
 				String resultData = gson.toJson(RespDto);
 				System.out.println("resultData" +resultData);
 				PrintWriter out = response.getWriter();

@@ -6,7 +6,7 @@ import lombok.Data;
 public class SaveReqDto {
 
 	private int bno;
-	private String userId;
+	private String userName;
 	private String content;
 	
 }
