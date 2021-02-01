@@ -6,6 +6,31 @@
  */
 
 
+function addReply(data){
+	
+	var replyItem = `<li id="reply-${data.bno}" class="commentItem">`;
+	replyItem += `<div class="comment_area" style="border-top: 2px solid #e5e5e5">`
+	replyItem += `<div class="comment_box">`
+	replyItem += `<div class="comment_nick_box">`
+	replyItem += `<div class="comment_nick_info" id="comment_username">${data.userName}</div>`
+	replyItem += `</div>`
+	replyItem += `<div class="comment_text_box">`
+	replyItem += `<p class="comment_text_box" id="comment_content">${data.content} </p>`
+	replyItem += `</div>`
+	replyItem += `<div class="comment_info_box">`
+	replyItem +=`<span class="comment_info_date"></span>`
+	replyItem +=`<a href="" class="comment_info_button">답글쓰기</a>`
+	replyItem +=`</div>`
+	replyItem +=`<div class="comment_tool"></div>`
+	replyItem +=`</div>`
+	replyItem +=`</div>  `
+	replyItem +=`</li> `
+	
+	
+		$("#comment__list").prepend(replyItem)
+				
+}
+
 function boardDelete(bno){
 	$.ajax({
 		type :"post",
@@ -26,7 +51,30 @@ function boardDelete(bno){
 	
 }
 
-
+function commentRegister(bno ) {
+		var data = {
+			userName : $("#userName").val(),
+			bno : bno,
+			content :$("#reply").val()
+		}
+		$.ajax({
+			type: "post",
+			url : "/lectureEvaluation/replyServlet?cmd=register",
+			dataType : "json",
+			data : JSON.stringify(data),
+			contentType : "application/json; charset=utf-8"
+			
+		}).done(function(result){
+			console.log(result)
+			if(result.statusCode ==1){
+				addReply(result.data)
+				$("#reply").val("") 
+			}else{
+				alert("댓글 쓰기 실패")
+			}
+		})
+		
+	}
 
 
 

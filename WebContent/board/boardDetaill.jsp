@@ -80,7 +80,7 @@ ul{
 	</div>
 	<div class="commentBox" style="margin-top: 5px;">
 	
-	<ul class="comment_list">
+	<ul class="comment_list" id="comment__list">
 	<li class="commentItem">
 	<div class="comment_area" style="border-top: 2px solid #e5e5e5">
 		<div class="comment_box">
@@ -129,35 +129,7 @@ ul{
 	</div><!--  commentBox  -->
 	
 	</div>
-	<script>
 
-	function commentRegister(bno ) {
-		var data = {
-			userName : $("#userName").val(),
-			bno : bno,
-			content :$("#reply").val()
-		}
-		$.ajax({
-			type: "post",
-			url : "/lectureEvaluation/replyServlet?cmd=register",
-			dataType : "json",
-			data : JSON.stringify(data),
-			contentType : "application/json; charset=utf-8"
-			
-		}).done(function(result){
-			console.log(result)
-			if(result.statusCode ==1){
-				$("#comment_content").prepend(data.content)
-					$("#comment_username").prepend(data.userName)
-				console.log("댓글 쓰기 성공")
-			}else{
-				alert("댓글 쓰기 실패")
-			}
-		})
-		
-	}
-	</script>
-	<script src="/lectureEvaluation/js/boardDetail.js">
-	</script>
+	<script src="/lectureEvaluation/js/boardDetail.js"></script>
 </body>
 </html>

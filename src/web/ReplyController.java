@@ -25,6 +25,7 @@ import board.Board;
 import board.CommonRespDto;
 import board.UpdateReqDto;
 import lecture.Lecture;
+import reply.Reply;
 import reply.SaveReqDto;
 import user.User;
 import utill.SHA256;
@@ -93,12 +94,23 @@ public class ReplyController extends HttpServlet {
 //									json을 자바오브젝트로 변환 
 				SaveReqDto dto = gson.fromJson(reqData, SaveReqDto.class);
 				System.out.println("댓글 dto : "+dto);
-			
-				int result = replyService.댓글쓰기(dto);
 				
-				CommonRespDto<Integer> RespDto = new CommonRespDto<>();
-				RespDto.setStatusCode(result); // 1,-1
-				RespDto.setData(1); //어차피 insert만 할거라서 응답할게 없지만 그냥 넣음
+				Reply reply = null;
+				CommonRespDto<Reply> RespDto = new CommonRespDto<>();
+				int result = replyService.댓글쓰기(dto); 
+				//result = 댓글 번호 rno
+				if(result != -1) {
+					reply = replyService.댓글찾기(result);
+					RespDto.setStatusCode(1);
+					RespDto.setData(reply);
+					
+				}else {
+					RespDto.setStatusCode(-1);
+				}
+				
+				
+				 // 1,-1
+				 //어차피 insert만 할거라서 응답할게 없지만 그냥 넣음
 				
 				String responseData = gson.toJson(RespDto);
 				System.out.println("responseData : "+ responseData);
