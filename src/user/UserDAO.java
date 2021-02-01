@@ -203,8 +203,6 @@ public class UserDAO {
 	public User getUser(String pr) {
 		System.out.println("유저 정보 가져오기");
 		String sql = "select * from user where userId = ?";
-		System.out.println("Sss");
-		System.out.println("pr 값은 :"+ pr);
 		User user = new User();
 		try {
 			conn= DatabaseUtill.dbPool();
@@ -217,12 +215,6 @@ public class UserDAO {
 				user.setUserEmail(rs.getString(6));
 				user.setUserAddr(rs.getString(5));
 				user.setUserPassword(rs.getString(4));
-				System.out.println("rs next");
-				System.out.println("DB 1번 "+ rs.getInt(1));
-				System.out.println("DB 2번 항목 : "+ rs.getString(2));
-				System.out.println("DB 3번 항목 : "+ rs.getString(3));
-				System.out.println("DB 4번 항목 : "+rs.getString(4));
-				System.out.println("DB 6번 항목 : "+rs.getString(6));
 				return user;
 			}else {
 				System.out.println("해당 유저 정보가 없습니다");
@@ -246,7 +238,6 @@ public class UserDAO {
 	
 	//회원 탈퇴
 	public int 회원탈퇴(String userId) {
-		System.out.println("회원탈퇴 메서드 호출");
 		System.out.println("userId : " +userId);
 		String sql = "delete from user where userId = ?";
 		

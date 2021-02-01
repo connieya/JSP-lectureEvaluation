@@ -19,11 +19,13 @@ import com.google.gson.Gson;
 
 import Service.BoardService;
 import Service.LectureService;
+import Service.ReplyService;
 import Service.UserService;
 import board.Board;
 import board.CommonRespDto;
 import board.UpdateReqDto;
 import lecture.Lecture;
+import reply.SaveReqDto;
 import user.User;
 import utill.SHA256;
 import utill.Script;
@@ -75,14 +77,44 @@ public class ReplyController extends HttpServlet {
 			response.setContentType("text/html; charset=utf-8");
 			String cmd = request.getParameter("cmd");
 			System.out.println("cmd 값은 : " +cmd);
-			
+			ReplyService replyService = new ReplyService();
 			HttpSession session = request.getSession();
 			
 			if(cmd.equals("register")) {
-				int bno = Integer.parseInt(request.getParameter("bno"));
-				String content = request.getParameter("content");
-				String userId = request.getParameter("userId");
+//				form 태그로 요청한것이 아니라 ajax로 json으로 요청해서 밑에서 처럼 할 수 없다. 
+//				int bno = Integer.parseInt(request.getParameter("bno"));
+//				String content = request.getParameter("content");
+//				String userId = request.getParameter("userId");
+				
+				BufferedReader br = request.getReader();
+				String reqData = br.readLine();
+				System.out.println("reqData :" + reqData);
+				Gson gson = new Gson();
+//									json을 자바오브젝트로 변환 
+				SaveReqDto dto = gson.fromJson(reqData, SaveReqDto.class);
+				System.out.println("댓글 dto : "+dto);
 			
+				int result = replyService.댓글쓰기(dto);
+				
+				CommonRespDto<Integer> RespDto = new CommonRespDto<>();
+				RespDto.setStatusCode(result); // 1,-1
+				RespDto.setData(1); //어차피 insert만 할거라서 응답할게 없지만 그냥 넣음
+				
+				String responseData = gson.toJson(RespDto);
+				System.out.println("responseData : "+ responseData);
+				
+				
+				// 요청이 들어온 ajax에게 응답해줌
+				Script.responseData(response, responseData);
+				
+//				if(result ==1) {
+//					Script.responseData(response, responseData);
+//				}else {
+//					Script.responseData(response, responseData);
+//				}
+//				 위에 로직도 필요 없다 왜냐하면 reponseData안에 1 or -1 값이
+//					담길 것이고 그러면 내가 요청한 ajax에서 분개해주면 된다 
+				
 			}
 			
 			

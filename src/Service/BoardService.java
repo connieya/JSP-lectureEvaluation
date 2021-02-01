@@ -30,7 +30,10 @@ public class BoardService {
 	// 하나의 서비스 안에 여러가지 DB관련 로직이 섞여있기때문에 
 	// service를 사용한다.
 	public Board 글상세보기(int bno) {
-		
+//		글 상세보기 할 때 필요한 것이 board에 대한 정보와
+//		유저 아이디와 이름 , 그리고 댓글 목록이기 때문에
+//		여기서 모든 객체를 다 받아줘야한다.
+//		그리고 하나의 dto에 담아서 리턴해줘야한다.
 		// 조회수 증가 & 상세보기 값 두개 다 오류가 발생하지 않아야함
 		int result  = dao.readCount(bno);
 		if(result ==1) {

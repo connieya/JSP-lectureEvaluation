@@ -12,9 +12,7 @@ public class Script {
 		
 		try {
 			out = response.getWriter();
-			out.println("<script>");
-			out.println("alert('"+jsonData+"');");
-			out.println("</script>");
+			out.print(jsonData);
 			out.flush(); // 버퍼 비우기
 		}catch(IOException e) {
 			e.printStackTrace();

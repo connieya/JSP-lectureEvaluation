@@ -85,10 +85,10 @@ ul{
 	<div class="comment_area" style="border-top: 2px solid #e5e5e5">
 		<div class="comment_box">
 			<div class="comment_nick_box">
-				<div class="comment_nick_info">장정우니당</div>
+				<div class="comment_nick_info" id="comment_username">장정우니당</div>
 			</div>
 			<div class="comment_text_box">
-				<p class="comment_text_box">취뽀하자 ㅎㅎ</p>
+				<p class="comment_text_box" id="comment_content">취뽀하자 ㅎㅎ </p>
 			</div>
 			<div class="comment_info_box">
 				<span class="comment_info_date">2021.01.30. 19:05</span>
@@ -100,7 +100,7 @@ ul{
 	</li>
 	</ul>
 	<c:choose>
-	<c:when test="${userObject.userId == null }">
+	<c:when test="${sessionScope.principal == null }">
 		<div class="notComment" style="width: 100%; border: 2px solid #dcdcdc">
 		<p>로그인 후 댓글을 남길 수 있습니다.</p>
 			
@@ -110,7 +110,7 @@ ul{
 	<div class="commentWriter" style="width: 10	0%; border: 2px solid #dcdcdc; border-radius: 6px; box-sizing: border-box; margin-top:10px;">
 	
 	<div class="commentInbox" style="position: relative; margin: 10px 5px; height:80%">
-	<em class="comment_inbox_name" style="display:block; font-weight: 700; margin: 10px 0; font-size: 17px;">${userObject.userName }</em>
+	<em class="comment_inbox_name" style="display:block; font-weight: 700; margin: 10px 0; font-size: 17px;"> ${userObject.userName }</em>
 	<textarea style=" max-height: 500px; width:100%;"class="comment_inbox_text" rows="1" placeholder="댓글을 남겨보세요"  id="reply"></textarea>
 	</div>
 	
@@ -118,8 +118,8 @@ ul{
 	<div class="comment_attach" style="display: block; position: relative; clear: both;">
 	<div class="register_box">
 	
-	<input type="hidden" value="${userObject.userId }"  id="userId" />
-	<button style="float: right"  class="btn btn-register" onclick="commentRegister(${detail.bno},${userObject.userId })">등록</button>
+	<input type="hidden" value="${userObject.userName }"  id="userName" />
+	<button style="float: right"  class="btn btn-register" onclick="commentRegister(${detail.bno})">등록</button>
 	</div>
 	</div>
 	
@@ -131,19 +131,28 @@ ul{
 	</div>
 	<script>
 
-	function commentRegister(bno ,userId) {
-		alert ("안녕!!!")
-		cosole.log("좀되라 시발 ㅋㅋ")
-		var content = document.getElementById("reply");
-		var data = content.value;
+	function commentRegister(bno ) {
+		var data = {
+			userName : $("#userName").val(),
+			bno : bno,
+			content :$("#reply").val()
+		}
 		$.ajax({
 			type: "post",
-			url : "/lectureEvaluation/replyServlet?cmd=register$bno="+bno+"$userId="+userId+"",
+			url : "/lectureEvaluation/replyServlet?cmd=register",
 			dataType : "json",
-			data : data
+			data : JSON.stringify(data),
+			contentType : "application/json; charset=utf-8"
 			
 		}).done(function(result){
-			
+			console.log(result)
+			if(result.statusCode ==1){
+				$("#comment_content").prepend(data.content)
+					$("#comment_username").prepend(data.userName)
+				console.log("댓글 쓰기 성공")
+			}else{
+				alert("댓글 쓰기 실패")
+			}
 		})
 		
 	}

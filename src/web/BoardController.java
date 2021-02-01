@@ -18,10 +18,12 @@ import org.apache.catalina.Session;
 import com.google.gson.Gson;
 
 import Service.BoardService;
+import Service.ReplyService;
 import Service.UserService;
 import board.Board;
 import board.CommonRespDto;
 import board.UpdateReqDto;
+import reply.Reply;
 import user.User;
 import utill.SHA256;
 import utill.Script;
@@ -79,6 +81,7 @@ public class BoardController extends HttpServlet {
 			
 			BoardService boardService = new BoardService();
 			UserService userService = new UserService();
+			ReplyService replyService = new ReplyService();
 			
 			
 			
@@ -117,6 +120,11 @@ public class BoardController extends HttpServlet {
 			}else if(cmd.equals("detail")) {
 				int bno = Integer.parseInt(request.getParameter("bno"));
 				
+				/*
+				 * 사실 아래와 같이 세션 값을 체크 할 필요가 없다. 그냥 boardDetail.jsp 에서 sessionScope.principal 값을
+				 * 바로 체크하면 되는데, 내가 세션 값을 설정할 때 user 객체로 지정하지않고 userId로 지정을 해서 아래와 같이 user 객체를
+				 * 넘겨주었다.
+				 */
 				String userId = null;
 				if(session.getAttribute("principal") != null) {
 					userId = (String) session.getAttribute("principal");
@@ -129,10 +137,14 @@ public class BoardController extends HttpServlet {
 				System.out.println("bno :" +bno);
 				Board detail = new Board();
 				detail = boardService.글상세보기(bno);
+				List<Reply> replys = replyService.댓글목록보기(bno);
+				// 글 상세보기 화면에 댓글 목록도 나와야한다.
 				if(detail == null) {
 					Script.back(response, "글 상세보기 실패");
 				}else {
 				request.setAttribute("detail", detail);
+				request.setAttribute("replys", replys);
+				// 댓글에 대한 데이터도 글 상세보기 페이지에 필요하다.
 				RequestDispatcher dis =
 						request.getRequestDispatcher("board/boardDetaill.jsp");
 				
@@ -205,6 +217,8 @@ public class BoardController extends HttpServlet {
 				RespDto.setData("성공");
 				
 				Gson gson = new Gson();
+				// 응답해줄 ajax에서 dataType : "json"으로 설정했기 때문에 
+				//결과값을 json으로 변환해줘야함
 				String resultData = gson.toJson(RespDto);
 				System.out.println("resultData" +resultData);
 				PrintWriter out = response.getWriter();
