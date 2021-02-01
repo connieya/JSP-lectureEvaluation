@@ -18,10 +18,12 @@ import org.apache.catalina.Session;
 import com.google.gson.Gson;
 
 import Service.BoardService;
+import Service.ReplyService;
 import Service.UserService;
 import board.Board;
 import board.CommonRespDto;
 import board.UpdateReqDto;
+import reply.Reply;
 import user.User;
 import utill.SHA256;
 import utill.Script;
@@ -79,6 +81,7 @@ public class BoardController extends HttpServlet {
 			
 			BoardService boardService = new BoardService();
 			UserService userService = new UserService();
+			ReplyService replyService = new ReplyService();
 			
 			
 			
@@ -134,10 +137,14 @@ public class BoardController extends HttpServlet {
 				System.out.println("bno :" +bno);
 				Board detail = new Board();
 				detail = boardService.글상세보기(bno);
+				List<Reply> replys = replyService.댓글목록보기(bno);
+				// 글 상세보기 화면에 댓글 목록도 나와야한다.
 				if(detail == null) {
 					Script.back(response, "글 상세보기 실패");
 				}else {
 				request.setAttribute("detail", detail);
+				request.setAttribute("replys", replys);
+				// 댓글에 대한 데이터도 글 상세보기 페이지에 필요하다.
 				RequestDispatcher dis =
 						request.getRequestDispatcher("board/boardDetaill.jsp");
 				

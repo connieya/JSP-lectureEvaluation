@@ -1,5 +1,8 @@
 package Service;
 
+import java.util.List;
+
+import reply.Reply;
 import reply.ReplyDao;
 import reply.SaveReqDto;
 
@@ -9,6 +12,11 @@ public class ReplyService {
 	
 	public ReplyService() {
 		dao = new ReplyDao();
+	}
+	public List<Reply> 댓글목록보기(int bno){
+		
+		return dao.findAll(bno);
+		
 	}
 	
 	public int 댓글쓰기(SaveReqDto dto) {
