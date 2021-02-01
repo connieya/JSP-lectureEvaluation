@@ -20,7 +20,7 @@ public class ReplyDao {
 	public int register(SaveReqDto dto) {
 		
 		
-		String sql = "insert into reply(userName, bno, content, createDate) values(?,?,?, now() )";
+		String sql = "insert into reply(userName, bno, content, createDate ,userNo) values(?,?,?, now() ,?)";
 		int generateKey;
 		conn = DatabaseUtill.dbPool();
 		try {
@@ -29,10 +29,11 @@ public class ReplyDao {
 			pstmt.setString(1, dto.getUserName());
 			pstmt.setInt(2, dto.getBno());
 			pstmt.setString(3, dto.getContent());
+			pstmt.setInt(4, dto.getUserNo());
 			int result = pstmt.executeUpdate();
 			rs = pstmt.getGeneratedKeys(); //primary key를 받는다.
 			if(rs.next()) {
-				generateKey = rs.getInt("rno");
+				generateKey = rs.getInt(1);
 				System.out.println("생성된 키(댓글번호) : " + generateKey);
 				if(result==1) {
 					return generateKey;
@@ -62,6 +63,7 @@ public class ReplyDao {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Reply reply = new Reply();
+				reply.setUserNo(rs.getInt("userNo"));
 				reply.setBno(rs.getInt("bno"));
 				reply.setRno(rs.getInt("rno"));
 				reply.setContent(rs.getString("content"));
@@ -75,6 +77,8 @@ public class ReplyDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			DB.close(conn, pstmt ,rs);
 		}
 		
 		return null;
@@ -104,9 +108,30 @@ public class ReplyDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			DB.close(conn, pstmt, rs);
 		}
 		
 		return null;
+	}
+	
+	public int delete(int rno) {
+		String sql = "delete from reply where rno = ?";
+	
+		conn = DatabaseUtill.dbPool();
+		try {
+								// executeUpdate를 했는데도 rs로 결과를 받을 수 있다.
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rno);
+			return pstmt.executeUpdate();
+				
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DB.close(conn, pstmt);
+		}
+		
+		return -1;
 	}
 
 }

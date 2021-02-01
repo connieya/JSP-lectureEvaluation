@@ -6,9 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="/lectureEvaluation/style.css" />
 <style type="text/css">
 	.comment_inbox_text{
-	
+		color: black;
 		min-height: 17px;
 		display: block;
 		border : 0;
@@ -24,10 +25,25 @@
     position: relative;
     font-size: 13px;
     vertical-align: top;
-}
+	}
+	.comment_tool{
+		position: absolute;
+		top:12px;
+		right:0
+	}
+	.comment_tool_button{
+		display:block;
+		width:60px;
+		height:60px;
+		text-align: right;
+	}
 
 ul{
 	list-style: none;
+}
+#reComment{
+	color: black;
+	font-style: italic;
 }
 </style>
 </head>
@@ -81,23 +97,31 @@ ul{
 	<div class="commentBox" style="margin-top: 5px;">
 	
 	<ul class="comment_list" id="comment__list">
-	<li class="commentItem">
+	<c:forEach var="reply" items="${replys }">
+	<li class="commentItem" id="reply-${reply.rno }">
 	<div class="comment_area" style="border-top: 2px solid #e5e5e5">
 		<div class="comment_box">
 			<div class="comment_nick_box">
-				<div class="comment_nick_info" id="comment_username">장정우니당</div>
+				<div class="comment_nick_info" id="comment_username">${reply.userName}</div>
 			</div>
-			<div class="comment_text_box">
-				<p class="comment_text_box" id="comment_content">취뽀하자 ㅎㅎ </p>
+			<div class="comment_text_box row">
+				<p class="comment_text_box" id="comment_content" style="padding-left: 15px;">${reply.content}</p>
+				
 			</div>
 			<div class="comment_info_box">
-				<span class="comment_info_date">2021.01.30. 19:05</span>
-				<a href="" class="comment_info_button">답글쓰기</a>
+				<span class="comment_info_date">${reply.createDate }</span>
+				<a href="" id="reComment" class="comment_info_button">답글쓰기</a>
 			</div>
-			<div class="comment_tool"></div>
+		
+			<c:if test="${userObject.userNo == reply.userNo }">
+			<div class="comment_tool">
+				<button class="comment_tool_button btn btn-register"  onclick="commentDelete(${reply.rno})">삭제</button>
+			</div>
+			</c:if>
 		</div> <!-- comment_box -->
 	</div>  <!-- comment_area -->
 	</li>
+	</c:forEach>
 	</ul>
 	<c:choose>
 	<c:when test="${sessionScope.principal == null }">
@@ -117,7 +141,7 @@ ul{
 	
 	<div class="comment_attach" style="display: block; position: relative; clear: both;">
 	<div class="register_box">
-	
+	<input type="hidden" value="${userObject.userNo }"  id="userNo" />
 	<input type="hidden" value="${userObject.userName }"  id="userName" />
 	<button style="float: right"  class="btn btn-register" onclick="commentRegister(${detail.bno})">등록</button>
 	</div>

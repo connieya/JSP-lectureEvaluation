@@ -210,6 +210,7 @@ public class UserDAO {
 			pstmt.setString(1,pr);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
+				user.setUserNo(rs.getInt(1));
 				user.setUserName(rs.getString(3));
 				user.setUserId(rs.getString(2));
 				user.setUserEmail(rs.getString(6));

@@ -127,6 +127,18 @@ public class ReplyController extends HttpServlet {
 //				 위에 로직도 필요 없다 왜냐하면 reponseData안에 1 or -1 값이
 //					담길 것이고 그러면 내가 요청한 ajax에서 분개해주면 된다 
 				
+			}else if(cmd.equals("delete")) {
+				int rno = Integer.parseInt(request.getParameter("rno"));
+				
+				int result = replyService.댓글삭제(rno);
+				
+				CommonRespDto resp = new CommonRespDto<>();
+				resp.setStatusCode(result);
+				
+				Gson gson = new Gson();
+				String resultData = gson.toJson(resp);
+				
+				Script.responseData(response,resultData);
 			}
 			
 			

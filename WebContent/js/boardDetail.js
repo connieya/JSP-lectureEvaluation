@@ -9,6 +9,7 @@
 function addReply(data){
 	
 	var replyItem = `<li id="reply-${data.bno}" class="commentItem">`;
+	replyItem += `<c:forEach var="reply">`
 	replyItem += `<div class="comment_area" style="border-top: 2px solid #e5e5e5">`
 	replyItem += `<div class="comment_box">`
 	replyItem += `<div class="comment_nick_box">`
@@ -18,12 +19,17 @@ function addReply(data){
 	replyItem += `<p class="comment_text_box" id="comment_content">${data.content} </p>`
 	replyItem += `</div>`
 	replyItem += `<div class="comment_info_box">`
-	replyItem +=`<span class="comment_info_date"></span>`
+	replyItem +=`<span class="comment_info_date">${data.createDate}</span>`
 	replyItem +=`<a href="" class="comment_info_button">답글쓰기</a>`
 	replyItem +=`</div>`
-	replyItem +=`<div class="comment_tool"></div>`
+	replyItem += `<c:if>`
+	replyItem +=`<div class="comment_tool">`
+	replyItem +=`<button class="comment_tool_button btn btn-register"  onclick="commentDelete()">삭제</button>`
+	replyItem +=`</div>`
+	replyItem +=`</c:if>`
 	replyItem +=`</div>`
 	replyItem +=`</div>  `
+	replyItem +=`</c:forEach>`
 	replyItem +=`</li> `
 	
 	
@@ -55,7 +61,8 @@ function commentRegister(bno ) {
 		var data = {
 			userName : $("#userName").val(),
 			bno : bno,
-			content :$("#reply").val()
+			content :$("#reply").val(),
+			userNo:$("#userNo").val()
 		}
 		$.ajax({
 			type: "post",
@@ -77,6 +84,24 @@ function commentRegister(bno ) {
 	}
 
 
+function commentDelete(rno){
+		$.ajax({
+			type: "post",
+			url : "/lectureEvaluation/replyServlet?cmd=delete&rno="+rno,
+			dataType : "json"
+			
+		}).done(function(result){
+			console.log(result)
+			if(result.statusCode ==1){
+				console.log(result);
+				$("#reply-"+rno).remove();
+			}else{
+				alert("댓글 삭제 실패")
+			}
+		})
+		
+	}
+	
 
 
 

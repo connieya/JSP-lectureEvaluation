@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Reply {
 	private int rno;
+	private int userNo;
 	private String userName;
 	private int bno;
 	private String content;
