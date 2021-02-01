@@ -25,6 +25,7 @@ import board.Board;
 import board.CommonRespDto;
 import board.UpdateReqDto;
 import lecture.Lecture;
+import reply.Reply;
 import reply.SaveReqDto;
 import user.User;
 import utill.SHA256;
@@ -93,12 +94,23 @@ public class ReplyController extends HttpServlet {
 //									json을 자바오브젝트로 변환 
 				SaveReqDto dto = gson.fromJson(reqData, SaveReqDto.class);
 				System.out.println("댓글 dto : "+dto);
-			
-				int result = replyService.댓글쓰기(dto);
 				
-				CommonRespDto<Integer> RespDto = new CommonRespDto<>();
-				RespDto.setStatusCode(result); // 1,-1
-				RespDto.setData(1); //어차피 insert만 할거라서 응답할게 없지만 그냥 넣음
+				Reply reply = null;
+				CommonRespDto<Reply> RespDto = new CommonRespDto<>();
+				int result = replyService.댓글쓰기(dto); 
+				//result = 댓글 번호 rno
+				if(result != -1) {
+					reply = replyService.댓글찾기(result);
+					RespDto.setStatusCode(1);
+					RespDto.setData(reply);
+					
+				}else {
+					RespDto.setStatusCode(-1);
+				}
+				
+				
+				 // 1,-1
+				 //어차피 insert만 할거라서 응답할게 없지만 그냥 넣음
 				
 				String responseData = gson.toJson(RespDto);
 				System.out.println("responseData : "+ responseData);
@@ -115,6 +127,18 @@ public class ReplyController extends HttpServlet {
 //				 위에 로직도 필요 없다 왜냐하면 reponseData안에 1 or -1 값이
 //					담길 것이고 그러면 내가 요청한 ajax에서 분개해주면 된다 
 				
+			}else if(cmd.equals("delete")) {
+				int rno = Integer.parseInt(request.getParameter("rno"));
+				
+				int result = replyService.댓글삭제(rno);
+				
+				CommonRespDto resp = new CommonRespDto<>();
+				resp.setStatusCode(result);
+				
+				Gson gson = new Gson();
+				String resultData = gson.toJson(resp);
+				
+				Script.responseData(response,resultData);
 			}
 			
 			

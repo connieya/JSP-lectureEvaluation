@@ -21,12 +21,19 @@ public class ReplyService {
 	
 	public int 댓글쓰기(SaveReqDto dto) {
 		
-		return dao.register(dto);
+		return dao.register(dto); // 결과가 1일 때 댓글번호(rno) 값
 	}
 	
-	public int 댓글삭제 () {
+	public int 댓글삭제 (int rno) {
 		
-		return -1;
+		
+		return dao.delete(rno);
+	}
+	
+	public Reply 댓글찾기(int rno) {
+		
+		return dao.findById(rno);
+		
 	}
 
 }
