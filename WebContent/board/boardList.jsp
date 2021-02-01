@@ -6,7 +6,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<style>
+	td  a  {
+		color: black;
+	}
+	li > a{
+		color :black;
+	}
+	div.pageBox{
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
+	}
+</style>
 </head>
 <body>
 <%@ include file="../components/header.jsp" %>
@@ -51,8 +63,21 @@
      
     </tbody>
   </table>
-  </div>
+  
+  </div>  <!-- div row -->
+  
+  <div class="pageBox" style="margin: 5px auto; ">
+  <ul class="pagination" style="color: #000000">
+  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+  <li class="page-item"><a class="page-link" href="#">1</a></li>
+  <li class="page-item"><a class="page-link" href="#">2</a></li>
+  <li class="page-item"><a class="page-link" href="#">3</a></li>
+  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+	</ul>
 </div>
+  
+</div>
+
 
 <script>
 	function NotRegister(){
