@@ -110,7 +110,7 @@ ul{
 			</div>
 			<div class="comment_info_box">
 				<span class="comment_info_date">${reply.createDate }</span>
-				<a href="" id="reComment" class="comment_info_button">답글쓰기</a>
+				<!-- <a href="" id="reComment" class="comment_info_button">답글쓰기</a> -->
 			</div>
 		
 			<c:if test="${userObject.userNo == reply.userNo }">

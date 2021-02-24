@@ -149,8 +149,8 @@
 				</div>
 				<div class="col-3 text-right">
 					
-					<a href="/lectureEvaluation/evaluation/likeAction.jsp?evaluationNo=<%=evaluationList.getEvaluationNo() %>" onclick="return confirm('추천 하시겠습니까?')">추천</a>
-					<a href="evaluation/DeleteAction.jsp?evaluationNo=<%=evaluationList.getEvaluationNo() %>" onclick="return confirm('삭제 하시겠습니까?')">삭제</a>				
+					<a href="/lectureEvaluation/lectureServlet?cmd=like&evaluationNo=<%=evaluationList.getEvaluationNo() %>" onclick="return confirm('추천 하시겠습니까?')">추천</a>
+					<a href="/lectureEvaluation/lectureServlet?cmd=delete&evaluationNo=<%=evaluationList.getEvaluationNo() %>" onclick="return confirm('삭제 하시겠습니까?')">삭제</a>				
 				</div>
 			</div>
 		</div>

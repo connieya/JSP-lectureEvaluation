@@ -25,6 +25,7 @@ import board.CommonRespDto;
 import board.UpdateReqDto;
 import lecture.Lecture;
 import user.User;
+import utill.GetIp;
 import utill.SHA256;
 import utill.Script;
 
@@ -134,6 +135,65 @@ public class LectureController extends HttpServlet {
 				RequestDispatcher dis = 
 						request.getRequestDispatcher("emailSendAction.jsp");
 				dis.forward(request, response);
+			}else if(cmd.equals("like")) {
+				String evaluationNo = request.getParameter("evaluationNo");
+				String userId = null;
+				if(session.getAttribute("principal")!=null) {
+					userId = (String) session.getAttribute("principal");
+				}
+					GetIp ip = new GetIp();
+				 String userIp = ip.getClientIp(request);
+				 System.out.println("서블릿 호출 : " +evaluationNo+userId);
+				 int result = lectureService.추천누르기(userId, evaluationNo, userIp);
+				 if(result ==1) {
+					 	PrintWriter script = response.getWriter();
+						script.println("<script>");
+						script.println("alert('추천이 완료되었습니다')");
+						script.println("location.href='/lectureEvaluation/index.jsp'");
+						script.println("</script>");
+				 }else if(result ==-2) {
+					 	PrintWriter script = response.getWriter();
+						script.println("<script>");
+						script.println("alert('이미 추천을 누른 글입니다.')");
+						script.println("history.back()");
+						script.println("</script>");
+				 }else {
+					 PrintWriter script = response.getWriter();
+						script.println("<script>");
+						script.println("alert('데이터 베이스 오류가 발생했습니다')");
+						script.println("history.back()");
+						script.println("</script>");
+				 }
+//				
+			}else if(cmd.equals("delete")) {
+				String evaluationNo = request.getParameter("evaluationNo");
+				String userId = null;
+				if(session.getAttribute("principal")!=null) {
+					userId = (String) session.getAttribute("principal");
+				}
+				int result = lectureService.강의삭제하기(userId, evaluationNo);
+				if(result ==1) {
+					PrintWriter script = response.getWriter();
+					script.println("<script>");
+					script.println("alert('삭제가 완료되었습니다')");
+					script.println("location.href='/lectureEvaluation/index.jsp'");
+					script.println("</script>");
+					script.close();
+				}else if(result == -2) {
+					PrintWriter script = response.getWriter();
+					script.println("<script>");
+					script.println("alert('권한이 없습니다.')");
+					script.println("history.back()");
+					script.println("</script>");
+				}else {
+					PrintWriter script = response.getWriter();
+					script.println("<script>");
+					script.println("alert('데이터 베이스 오류가 발생했습니다')");
+					script.println("history.back()");
+					script.println("</script>");
+					script.close();
+				}
+				
 			}
 			
 			

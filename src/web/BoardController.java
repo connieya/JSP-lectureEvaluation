@@ -128,13 +128,13 @@ public class BoardController extends HttpServlet {
 				String userId = null;
 				if(session.getAttribute("principal") != null) {
 					userId = (String) session.getAttribute("principal");
+					User user = new User();
+					user = userService.유저정보가져오기(userId);
+					System.out.println("유저 세션의 no : " + user.getUserNo());
+					request.setAttribute("userObject", user);
 				}
 				
-				User user = new User();
-				user = userService.유저정보가져오기(userId);
-				System.out.println("유저 세션의 no : " + user.getUserNo());
 				
-				request.setAttribute("userObject", user);
 				
 				System.out.println("bno :" +bno);
 				Board detail = new Board();

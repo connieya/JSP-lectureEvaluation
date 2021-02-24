@@ -31,7 +31,7 @@
 	  
 	  <div id="editor" class="form-group">
 	  <label for="content">내용</label>
-	  <textarea class="form-control" rows="35" cols="50" id="summernote" name="content"></textarea>
+	  <textarea class="form-control" rows="15" cols="50" id="summernote" name="content"></textarea>
 	</div>
 	 <button id="btn-register" class="btn btn-primary">글쓰기</button>
 		</form>
@@ -40,7 +40,7 @@
 	</div>
 <script>
 
-$('#summernote').summernote({
+/* $('#summernote').summernote({
   placeholder: '내용을 입력하세요',
   tabsize: 2,
   height: 400,
@@ -49,7 +49,7 @@ $('#summernote').summernote({
 		  sendFile(files[0],this);
 	  }
   } */
-});
+}); */
 
 /* function sendFile(file,editor){
 	//파일 전송을 위한 폼 생성

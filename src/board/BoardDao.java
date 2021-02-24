@@ -33,7 +33,7 @@ public class BoardDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			DB.close(conn, pstmt, rs);
+			DB.close(conn, pstmt);
 		}
 		
 		return -1;

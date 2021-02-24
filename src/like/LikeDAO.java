@@ -13,6 +13,7 @@ public class LikeDAO {
 	ResultSet rs;
 	
 	public int like(String userId, String evaluationNo, String userIP) {
+		System.out.println("likeDao 호출 :" +userId +evaluationNo+userIP);
 		String sql = "insert into likey values(?,?,?)";
 		try {
 			 conn = DatabaseUtill.dbPool();
